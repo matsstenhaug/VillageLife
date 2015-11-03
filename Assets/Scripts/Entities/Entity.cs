@@ -23,13 +23,18 @@ public class Entity : MonoBehaviour
 		Have a variable+threshold for how often it is a male and female?
 	 */
 
-	Random r = new Random ();
+	Entity partner = null;
+
+	bool isPregnant = false;
+	bool hasSexPref = false;
+	bool hasLived = false;
 
 	sex s;
-	sexPref sp = null;
+	sexPref sp;
 	int age;
 	int genderThresh;
 
+	float looks;
 	float strength;
 	float stamina;
 	float hp;
@@ -38,10 +43,11 @@ public class Entity : MonoBehaviour
 
 	float resourceConsumpt;
 
-	int sexPrefThresh;
-	ArrayList<Decease> immunities;
-	ArrayList<Decease> weaknesses;
-	ArrayList<Decease> handicaps;
+	int sexPrefThresh; // also used for when he/she is of age (able to have a child)
+
+	ArrayList immunities;
+	ArrayList weaknesses;
+	ArrayList handicaps;
 
 
 
@@ -53,9 +59,9 @@ public class Entity : MonoBehaviour
 		hetero, bi, homo, a
 	}
 
-	public Entity(int genderThreshold, float strength, ArrayList<Decease> immunities, 
+	public Entity(int genderThreshold, float strength, ArrayList immunities, 
 	              float stamina, float hp, int sexPrefThresh, float intelligence,
-	              ArrayList<Decease> weaknesses, ArrayList<Decease> handicaps, float potency){
+	              ArrayList weaknesses, ArrayList handicaps, float potency){
 		this.age = 0;
 		this.genderThresh = genderThreshold;
 		this.strength = strength;
@@ -73,9 +79,8 @@ public class Entity : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-
 		// setting the gender of the entity
-		int gend = r.Next (100) + 1;
+		int gend = Random.Range (1,101);
 		if (gend >= genderThresh) {
 			s = sex.male;
 		}else{
@@ -85,33 +90,44 @@ public class Entity : MonoBehaviour
 		
 
 	}
+
+	public void setSexPref(){
+		// Might need a variable for each preferance, that can be tweeked with Evo-Alg
+
+		int a = Random.Range(0,4);
+		switch(a){
+		case 0:
+			sp = sexPref.hetero;
+			break;
+		case 1:
+			sp = sexPref.homo;
+			break;
+		case 2:
+			sp = sexPref.a;
+			break;
+		case 3:
+			sp = sexPref.bi; // 50/50 for wanting opposite sex
+			break;
+		}
+	}
+
+	public void IncreaseAge(){
+		age++;
+		if(age >= sexPrefThresh && !hasSexPref)
+		{
+			setSexPref();
+		}
+	}
+
+	public void findPartner(){
+		
+	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(age >= sexPrefThresh && sexPref == null)
-		{
-			// Might need a variable for each preferance, that can be tweeked with Evo-Alg
-			int a = r.Next(4);
-			switch(a){
-			case 0:
-				sp = sexPref.hetero;
-				break;
-			case 1:
-				sp = sexPref.homo;
-				break;
-			case 2:
-				sp = sexPref.a;
-				break;
-			case 3:
-				sp = sexPref.bi;
-				break;
-			}
-		}
-		// set the sexual preference at a certain age.
+		findPartner (); // create in main class, so that it goes through all the entities.
 
-		// update the age at end?
-		age ++;
 	}
 }
 
