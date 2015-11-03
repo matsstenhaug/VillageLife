@@ -57,12 +57,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -77,9 +71,11 @@
     <Compile Include="Assets\Scripts\AIAlgorithms\Gene.cs" />
     <Compile Include="Assets\Scripts\AIAlgorithms\GeneComparator.cs" />
     <Compile Include="Assets\Scripts\AIAlgorithms\GeneticAlgorithm.cs" />
+    <Compile Include="Assets\Scripts\DrawGrid.cs" />
     <Compile Include="Assets\Scripts\Entities\Entity.cs" />
     <Compile Include="Assets\Scripts\Threats\Decease\Decease.cs" />
     <Compile Include="Assets\Scripts\Threats\Disaster\Disaster.cs" />
+    <Compile Include="Assets\Scripts\VillageLifeSimulator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
