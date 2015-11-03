@@ -16,7 +16,7 @@ public class VillageLifeSimulator : MonoBehaviour
 		children = new ArrayList ();
 		// creates 20 Entities.
 		for (int i = 0; i < 20; i ++) {
-			Entity e = new Entity(50,Random.Range(1,101),null,Random.Range(1,101),100,Random.Range(12,18),Random.Range(1,1001),null,null,Random.Range(1,101));
+			Entity e = new Entity(50,Random.Range(1,101),null,Random.Range(1,101),100,Random.Range(12,18),Random.Range(1,1001),null,null,Random.Range(1,101), Random.Range(1,5));
 			ents.Add(e);
 		}
 		Debug.Log ("Created " + ents.Count + " Entities.");
@@ -32,7 +32,7 @@ public class VillageLifeSimulator : MonoBehaviour
 			// Make the child dependant on the parents??
 			if(e.isPregnant){
 				//Debug.Log("Child Created");
-				Entity newEnt = new Entity(50,Random.Range(1,101),null,Random.Range(1,101),100,Random.Range(13,18),Random.Range(1,1001),null,null,Random.Range(1,101));
+				Entity newEnt = new Entity(50,Random.Range(1,101),null,Random.Range(1,101),100,Random.Range(13,18),Random.Range(1,1001),null,null,Random.Range(1,101), Random.Range(1,5));
 				e.isPregnant = false;
 				e.children.Add(newEnt);
 				e.partner.children.Add(newEnt);
@@ -54,15 +54,17 @@ public class VillageLifeSimulator : MonoBehaviour
 				if(Random.Range(1,101)>=e2.potency){
 					//Debug.Log("HAVING SEX");
 					// Potency Success -> Pregnancy inc!
-					if(!e2.isPregnant && !e.isPregnant){
-						if(e.s == Entity.sex.female){
-							e.isPregnant = true;
-							e.partner = e2;
-							e2.partner = e;
-						}else{
-							e2.isPregnant = true;
-							e.partner = e2;
-							e2.partner = e;
+					if(!(e.children.Count >= e.maxChildren) && !(e2.children.Count >= e2.maxChildren)){
+						if(!e2.isPregnant && !e.isPregnant){
+							if(e.s == Entity.sex.female){
+								e.isPregnant = true;
+								e.partner = e2;
+								e2.partner = e;
+							}else{
+								e2.isPregnant = true;
+								e.partner = e2;
+								e2.partner = e;
+							}
 						}
 					}
 				}
@@ -144,6 +146,7 @@ public class VillageLifeSimulator : MonoBehaviour
 			newList.Add(e);
 		}
 		children = new ArrayList ();
+		//ents = new ArrayList ();
 		ents = (ArrayList)newList.Clone ();
 		iteration++;
 		Debug.Log ("Iteration: "+iteration+". Entities: "+ents.Count+".");

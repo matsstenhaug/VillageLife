@@ -26,7 +26,8 @@ public class Entity : MonoBehaviour
 	public Entity partner = null;
 	
 	public ArrayList children = new ArrayList ();
-	
+
+	public int maxChildren;
 	public bool isPregnant = false;
 	public bool hasSexPref = false;
 	public bool hasLived = false;
@@ -63,7 +64,7 @@ public class Entity : MonoBehaviour
 	
 	public Entity(int genderThreshold, float strength, ArrayList immunities, 
 	              float stamina, float hp, int sexPrefThresh, float intelligence,
-	              ArrayList weaknesses, ArrayList handicaps, float potency){
+	              ArrayList weaknesses, ArrayList handicaps, float potency, int maxC){
 		this.age = 0;
 		this.genderThresh = genderThreshold;
 		this.strength = strength;
@@ -75,7 +76,7 @@ public class Entity : MonoBehaviour
 		this.weaknesses = weaknesses;
 		this.handicaps = handicaps;
 		this.potency = potency;
-		
+		this.maxChildren = maxC;
 		int gend = Random.Range (1,101);
 		if (gend >= genderThresh) {
 			s = sex.male;
