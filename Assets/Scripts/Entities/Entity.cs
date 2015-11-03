@@ -23,39 +23,41 @@ public class Entity : MonoBehaviour
 		Have a variable+threshold for how often it is a male and female?
 	 */
 
-	Entity partner = null;
+	public Entity partner = null;
 
-	bool isPregnant = false;
-	bool hasSexPref = false;
-	bool hasLived = false;
+	public ArrayList children = new ArrayList ();
 
-	sex s;
-	sexPref sp;
-	int age;
-	int genderThresh;
+	public bool isPregnant = false;
+	public bool hasSexPref = false;
+	public bool hasLived = false;
 
-	float looks;
-	float strength;
-	float stamina;
-	float hp;
-	float intelligence;
-	float potency;
+	public sex s;
+	public sexPref sp;
+	public int age;
+	public int genderThresh;
 
-	float resourceConsumpt;
+	public float looks;
+	public float strength;
+	public float stamina;
+	public float hp;
+	public float intelligence;
+	public float potency;
 
-	int sexPrefThresh; // also used for when he/she is of age (able to have a child)
+	public float resourceConsumpt;
 
-	ArrayList immunities;
-	ArrayList weaknesses;
-	ArrayList handicaps;
+	public int sexPrefThresh; // also used for when he/she is of age (able to have a child)
+
+	public ArrayList immunities;
+	public ArrayList weaknesses;
+	public ArrayList handicaps;
 
 
 
-	enum sex {
+	public enum sex {
 		male, female
 	}
 
-	enum sexPref {
+	public enum sexPref {
 		hetero, bi, homo, a
 	}
 
