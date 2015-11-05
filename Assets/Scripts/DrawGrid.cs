@@ -9,13 +9,14 @@ public class DrawGrid : MonoBehaviour {
     public int columns = 4;
     public Button prefab;
     private Button button;
+    private GridLayoutGroup grid;
     #endregion
 
     // Use this for initialization
     void Start () {
         #region Make grid
         RectTransform myRect = GetComponent<RectTransform>();
-        GridLayoutGroup grid = this.GetComponent<GridLayoutGroup>();
+        grid = this.GetComponent<GridLayoutGroup>();
 
         float objectHeight = (myRect.rect.height - (grid.padding.top - grid.padding.bottom)) / (float)rows;
         float objectWidth = (myRect.rect.width - (grid.padding.left - grid.padding.right)) / (float)columns;
@@ -35,6 +36,17 @@ public class DrawGrid : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        // Grid goes UpperLeft -> Horizontal
+        Button[] buttons = grid.GetComponentsInChildren<Button>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Button b = buttons[i + (j * rows)];
+                if (b.gameObject.tag == "Selected") {
+                    b.image.color = Color.black;
+                } 
+            }
+        }
+    }
+
+
 }
