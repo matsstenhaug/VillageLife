@@ -51,6 +51,17 @@ Temporary Items
 # http://docs.unity3d.com/Manual/ExternalVersionControlSystemSupport.html
 Library
 
+# http://answers.unity3d.com/questions/22604/which-unity-project-files-can-be-ignored-for-versi.html
+Temp
+Obj
+
+*.csproj
+*.unityproj
+*.sln
+*.user
+*.userprefs
+*.DS_store
+
 # =========================
 # Personal Stuffz
 # =========================

@@ -51,6 +51,7 @@ public class Entity : MonoBehaviour
 	public ArrayList immunities;
 	public ArrayList weaknesses;
 	public ArrayList handicaps;
+	public ArrayList infections;
 	
 	
 	
@@ -83,7 +84,7 @@ public class Entity : MonoBehaviour
 		}else{
 			s = sex.female;
 		}
-		
+		infections = new ArrayList ();
 		//Debug.Log ("Gender: " + s);
 		
 	}
