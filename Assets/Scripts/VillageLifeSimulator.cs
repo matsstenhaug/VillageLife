@@ -4,7 +4,13 @@ using System.Collections;
 
 public class VillageLifeSimulator : MonoBehaviour
 {
-	
+
+	/*
+
+		WHY IS ONLY 1 PERSON BEING KILLED????  and only 1 person dies of old age??? AAARRGHHH!!
+
+	 */
+
 	ArrayList ents;
 	ArrayList children;
 	ArrayList deceases;
@@ -13,7 +19,9 @@ public class VillageLifeSimulator : MonoBehaviour
 	int newBorns = 0;
 	int kills = 0;
 	int ageDeaths = 0;
-	
+	int CanHaveKidsThresh = 42;
+	int MAX_SUPPORT = 500;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -21,7 +29,7 @@ public class VillageLifeSimulator : MonoBehaviour
 		children = new ArrayList ();
 		deceases = new ArrayList ();
 		// creates 20 Entities.
-		for (int i = 0; i < 20; i ++) {
+		for (int i = 0; i < 50; i ++) {
 			Entity e = new Entity(50,Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(12,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,5));
 			ents.Add(e);
 		}
@@ -38,7 +46,7 @@ public class VillageLifeSimulator : MonoBehaviour
 			// Make the child dependant on the parents??
 			if(e.isPregnant){
 				//Debug.Log("Child Created");
-				Entity newEnt = new Entity(50,Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(13,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,5));
+				Entity newEnt = new Entity(50,Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(13,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,20));
 				e.isPregnant = false;
 				e.children.Add(newEnt);
 				e.partner.children.Add(newEnt);
@@ -53,7 +61,7 @@ public class VillageLifeSimulator : MonoBehaviour
 	
 	// add STDs?
 	void makeLoveChild(Entity e, Entity e2){
-		if(e2.partner == null || e2.partner == e){
+		if(e2.partner == null || e2.partner == e){ // e can cheat :D
 			if(Random.Range(1,101)>=e.potency){
 				if(Random.Range(1,101)>=e2.potency){
 					//Debug.Log("HAVING SEX");
@@ -99,7 +107,7 @@ public class VillageLifeSimulator : MonoBehaviour
 					switch (e.sp) {
 					case Entity.sexPref.bi:
 						if (e2.sp == Entity.sexPref.bi || e2.sp == Entity.sexPref.hetero) {
-							if(e.age < 42 && e2.age <42){
+							if(e.age < CanHaveKidsThresh && e2.age < CanHaveKidsThresh){
 								makeLoveChild (e, e2);
 							}else{
 								makeLove(e,e2);
@@ -108,7 +116,7 @@ public class VillageLifeSimulator : MonoBehaviour
 						break;
 					case Entity.sexPref.hetero:
 						if (e2.sp == Entity.sexPref.bi || e2.sp == Entity.sexPref.hetero) {
-							if(e.age < 42 && e2.age <42){
+							if(e.age < CanHaveKidsThresh && e2.age <CanHaveKidsThresh){
 								makeLoveChild (e, e2);
 							}else{
 								makeLove(e,e2);
@@ -173,6 +181,9 @@ public class VillageLifeSimulator : MonoBehaviour
 	}
 
 	void UpdatePeople() {
+		int deaths = 0;
+		int killed = 0;
+		int aged = 0;
 		foreach (Entity e in ents) {
 			//go through people and take damage from infections
 			foreach(Decease d in e.infections){
@@ -181,19 +192,22 @@ public class VillageLifeSimulator : MonoBehaviour
 			}
 			//if entity.hp <= 0 -> Destroy and remove from list.
 			if(e.hp <= 0){
+				deaths++;
+				killed++;
 				ents.Remove(e);
 				Destroy(e);
-				dead++;
-				kills++;
 				break;
-			}else if(e.age >80){
+			}else if(e.age > CanHaveKidsThresh){ // Basically kills the people who are Unable to reproduce.
+				deaths++;
+				aged++;
 				ents.Remove(e);
 				Destroy(e);
-				dead++;
-				ageDeaths++;
 				break;
 			}
 		}
+		dead += deaths;
+		kills += killed;
+		ageDeaths += aged;
 	}
 
 	void Update ()
@@ -205,9 +219,13 @@ public class VillageLifeSimulator : MonoBehaviour
 		UpdateInteractions ();
 		ArrayList newList = new ArrayList ();
 		foreach (Entity e in ents) {
+			if(newList.Count == MAX_SUPPORT) 
+				break;
 			newList.Add(e);
 		}
 		foreach (Entity e in children) {
+			if(newList.Count == MAX_SUPPORT)
+				break;
 			newList.Add(e);
 		}
 		children = new ArrayList ();
