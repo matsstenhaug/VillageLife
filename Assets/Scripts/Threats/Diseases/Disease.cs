@@ -1,11 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Decease : MonoBehaviour
-{
-
-
-
+public class Disease {
 	/*
 	 * Types: Virus, Bacteria, Parasite
 	 * 
@@ -20,35 +16,23 @@ public class Decease : MonoBehaviour
 		Have a resistance factor for each person attached??
 	 */
 
-	public float personalRes;
-	public Entity host;
-
-	int ID;
+	public float lifespan;
+    public float lifetime;
 
 	public float lethality;
 	public float infectionRate;
-	public float resistance;
 	public float resDropRate;
 
+    public Disease parent = null;
 
-	public Decease(float leth, float inf, float res, float resDR, int id){
-		this.lethality = leth;
+
+	public Disease(float leth, float inf, float life, float resDR, Disease par) {
+        lifespan = 0;
+        this.lethality = leth;
 		this.infectionRate = inf;
-		this.resistance = res;
+		this.lifetime = life;
 		this.resDropRate = resDR;
-		this.ID = id;
-	}
-
-	// Use this for initialization
-	void Start ()
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
+        this.parent = par;
 	}
 }
 
