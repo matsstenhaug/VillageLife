@@ -23,7 +23,6 @@ public class VillageLifeSimulator : MonoBehaviour {
 
     public ArrayList getEntities()
     {
-
         return ents;
     }
     
@@ -32,7 +31,7 @@ public class VillageLifeSimulator : MonoBehaviour {
         return iteration;
     }
     
-    public void Start(ArrayList ents, Disease d)
+    public void Init(ArrayList ents, Disease d)
     {
         this.ents = ents;
         children = new ArrayList();
@@ -211,6 +210,7 @@ public class VillageLifeSimulator : MonoBehaviour {
         if (a <= chance) { // X % chance
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
+            print(ents.Count);
             GeneticAlgorithm ga = new GeneticAlgorithm(5, ents);
             Gene g = ga.StartAlgorithm();
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);

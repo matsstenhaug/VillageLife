@@ -7,10 +7,10 @@ public class GeneticAlgorithm
     public static int POPULATION_SIZE = 40;
     public static int EVALUTION_TRIALS = 10;
     public static int GENERATION_SIZE = 100;
-    public static int SIMULATION_ITERATIONS = 100;
+    public static int SIMULATION_ITERATIONS = 10;
 
     ArrayList mPopulation;
-    ArrayList currEnts;
+    ArrayList currEnts = new ArrayList();
 
     public GeneticAlgorithm(int size, ArrayList ents)
     {
@@ -92,7 +92,7 @@ public class GeneticAlgorithm
            (disease) Create field that sums up total damage taken from a disease, and evaluate.
            (entities) 
             */
-
+            //Debug.Log("Ents in : " + currEnts.Count);
             ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, currEnts);
 
 
@@ -116,18 +116,23 @@ public class GeneticAlgorithm
     {
         VillageLifeSimulator vls = new VillageLifeSimulator();
         Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
-        vls.Start(ents, d);
-        while(vls.getEntities().Count > 0 || vls.getIterations() >= SIMULATION_ITERATIONS)
+        vls.Init(ents, d);
+        //Debug.Log("no Ents: " + ents.Count);
+        while(vls.getEntities().Count > 0 && vls.getIterations() >= SIMULATION_ITERATIONS)
         {
-            vls.SimulateUpdate(ents);
+            vls.SimulateUpdate((ArrayList)ents.Clone());
         }
         return getFitnessDisease(vls);
     }
 
     public void produceNextGeneration()
     {
+
         // use one of the offspring techniques suggested in class (also applying any mutations) HERE
-        mPopulation.Sort();
+        GeneComparator mycomp = new GeneComparator();
+        mPopulation.Sort((IComparer) mycomp);
+        //mPopulation.Sort();
+        //mPopulation.Reverse();
         //Collections.sort(mPopulation, Collections.reverseOrder(new GeneComparator()));
         while (mPopulation.Count > POPULATION_SIZE / 2)
         {
@@ -158,7 +163,8 @@ public class GeneticAlgorithm
         // Initializing the population. A population contains few AI's
         // The small size is based on the few variables included and
         // the time it takes to run the GA
-        GeneticAlgorithm population = new GeneticAlgorithm(POPULATION_SIZE);
+
+        //GeneticAlgorithm population = new GeneticAlgorithm(POPULATION_SIZE);
         int generationCount = 0;
         Gene bestGene = null;
         ArrayList best = new ArrayList();
@@ -166,7 +172,7 @@ public class GeneticAlgorithm
         while (generationCount < GENERATION_SIZE)
         {
             // --- evaluate current generation:
-            population.evaluateGeneration();
+            evaluateGeneration();
             // --- print results here:
             // we choose to print the average fitness,
             // as well as the maximum and minimum fitness
@@ -176,30 +182,30 @@ public class GeneticAlgorithm
             float maxFitness = float.NegativeInfinity;//Float.NEGATIVE_INFINITY;
             string bestIndividual = "";
             string worstIndividual = "";
-            for (int i = 0; i < population.size(); i++)
+            for (int i = 0; i < size(); i++)
             {
-                float currFitness = population.getGene(i).getFitness();
+                float currFitness = getGene(i).getFitness();
                 avgFitness += currFitness;
                 if (currFitness < minFitness)
                 {
                     minFitness = currFitness;
-                    worstIndividual = population.getGene(i).getPhenotype();
+                    worstIndividual = getGene(i).getPhenotype();
                 }
                 if (currFitness > maxFitness)
                 {
                     maxFitness = currFitness;
-                    bestIndividual = population.getGene(i).getPhenotype();
-                    best.Add(population.getGene(i));
+                    bestIndividual = getGene(i).getPhenotype();
+                    best.Add(getGene(i));
                 }
             }
-            if (population.size() > 0) { avgFitness = avgFitness / population.size(); }
+            if (size() > 0) { avgFitness = avgFitness / size(); }
             //string output = "Generation: " + generationCount;
           //  output += "\t AvgFitness: " + avgFitness;
           //  output += "\t MinFitness: " + minFitness + " (" + worstIndividual + ")";
           //  output += "\t MaxFitness: " + maxFitness + " (" + bestIndividual + ")";
             //System.out.println(output);
             // produce next generation:
-            population.produceNextGeneration();
+            produceNextGeneration();
             generationCount++;
         }
         foreach(Gene g in best)
