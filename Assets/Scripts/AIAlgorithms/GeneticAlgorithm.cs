@@ -9,6 +9,21 @@ public class GeneticAlgorithm
     public static int GENERATION_SIZE = 100;
 
     ArrayList mPopulation;
+    ArrayList currEnts;
+
+    public GeneticAlgorithm(int size, ArrayList ents)
+    {
+        this.currEnts = ents;
+
+        // initialize the arraylist and each gene's initial weights HERE
+        mPopulation = new ArrayList();
+        for (int i = 0; i < size; i++)
+        {
+            Gene entry = new Gene();
+            entry.randomizeChromosome();
+            mPopulation.Add(entry);
+        }
+    }
 
     public GeneticAlgorithm(int size)
     {
@@ -26,13 +41,74 @@ public class GeneticAlgorithm
     {
         for (int i = 0; i < mPopulation.Count; i++)
         {
+            // the less iterations it takes for the population to die, the better. (for the diseases)
+            // the more iterations it - the better (for entities)
+
+            /*
+                make copies of the "state" and run simulations and return the iterations at end.
+
+            current population
+            current diseases
+            (general) populate new simulatioin with the new generation with diseases from existing.
+                    spawn x children where x is how many children would have been spawned.
+
+                    When do they die?
+                    for the sim: create a population based on how many would have spawned on the previous iteration
+            ///////////////////////                 
+            Make dummy population of 100(example) ents, based on what the "current" pop would have made
+            then test that population of 100 for each of the "evolutions" of diseases.
+            //////////////////////
+            Force-produce children until you have X-children to work with.
+            Take these 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            (Entities)
+            STEP 1:
+                Force-produce 100 children from the actual population
+            STEP 2:
+                Play simulation over X iterations, or untill they all die; WHichever comes first
+            STEP 3: (Evaluation)
+                Check to see how many iterations it took.
+                Check all the genes we create, in regards to the simulation
+                    - How many died, how many were born, how much damage was dealt?(from the created disease)
+            STEP 4:
+                Select fittest mutation.
+                go to STEP 1 and continue 10 times (Evolutioin_trials)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            (Diseases)
+            STEP 1:
+                Take current population
+                Mutate current disease ( the one you wanna make fit )
+            STEP 2:
+                Play simulation over X iterations, or untill they all die; WHichever comes first
+            STEP 3:
+                Check to see how many iterations it took.
+                Check all the genes we create, in regards to the simulation
+                    - How many died, and how much damage was dealt.
+            STEP 4:
+                select fittest mutation.
+                got to Step 1 and do over until done 10 times (Evolution_trials)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+           (disease) Create field that sums up total damage taken from a disease, and evaluate.
+           (entities) 
+            */
+
+            ((Gene)mPopulation[i]).mFitness = runExperiment(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, );
+
 
             //// NEEDS TO BE CHANGED TO OUR SIMULATOR , NOT PACMAN ///
-           // Executor exe = new Executor();
+            // Executor exe = new Executor();
             // calculates the fitness passed from a number of trials
-           // mPopulation.get(i).mFitness = exe.runExperiment(new PacmanStateMachine(mPopulation.get(i).mChromosome),
-                 //   new StarterGhosts(), EVALUTION_TRIALS);
+            // mPopulation.get(i).mFitness = exe.runExperiment(new PacmanStateMachine(mPopulation.get(i).mChromosome),
+            //   new StarterGhosts(), EVALUTION_TRIALS);
         }
+    }
+
+    public float runExperiment(int TRIALS, float[] chromosome, ArrayList ents)
+    {
+        VillageLifeSimulator vls = new VillageLifeSimulator();
+        Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
+        vls.Start(ents, d);
+        return 0;
     }
 
     public void produceNextGeneration()
@@ -64,7 +140,7 @@ public class GeneticAlgorithm
 
     public Gene getGene(int index) { return (Gene)mPopulation[index]; }
 
-    public void main(string[] args)
+    public void StartAlgorithm() // return the best fit
     {
         // Initializing the population. A population contains few AI's
         // The small size is based on the few variables included and

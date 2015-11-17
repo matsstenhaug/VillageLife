@@ -18,6 +18,22 @@ public class VillageLifeSimulator : MonoBehaviour {
 
     int itLastDisease = 1;
 
+    public ArrayList getEntities()
+    {
+
+        return ents;
+    }
+
+    
+    public void Start(ArrayList ents, Disease d)
+    {
+        this.ents = ents;
+        children = new ArrayList();
+        diseases = new ArrayList();
+        diseases.Add(d);
+    }
+
+
     // Use this for initialization
     void Start ()
 	{
@@ -183,7 +199,9 @@ public class VillageLifeSimulator : MonoBehaviour {
         }
         if (a <= chance) { // X % chance
             //print("A new Disease has emerged! " + chance);
-            // EVOLUTIONIZE HERE :D //
+            //////// EVOLUTIONIZE HERE :D /////////
+            GeneticAlgorithm ga = new GeneticAlgorithm(5, ents);
+            ga.StartAlgorithm();
             Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
             diseases.Add(d);
             itLastDisease = 1;
@@ -261,6 +279,11 @@ public class VillageLifeSimulator : MonoBehaviour {
     }
     #endregion
 
+    public ArrayList SimulateUpdate(ArrayList ents)
+    {
+        return ents;
+    }
+
     void Update () {
 		newBorns = 0;
 		kills = 0;
@@ -302,7 +325,8 @@ public class VillageLifeSimulator : MonoBehaviour {
             ", infected: " + infected + ", average: " + (float)averageDiseases + ", Diseases: " + diseases.Count);
 		//findPartner (); // create in main class, so that it goes through all the entities.
 		if (ents.Count == 0) {
-			Destroy(this);
+            ////// ENDS THE SIMULATION IF NO PEOPLE ARE ALIVE //////
+			//Destroy(this);
 		}
 
 		

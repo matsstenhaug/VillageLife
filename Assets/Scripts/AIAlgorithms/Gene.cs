@@ -27,12 +27,12 @@ public class Gene
      * The fitness is the current score the AI achieved in the last simulation.
      * The score is calculated from an average over a number of games.
      */
-    protected float mFitness;
+    public float mFitness;
 
     /**
      * The chromosome contains the values the ai uses for the switching between the states
      */
-    protected int[] mChromosome;
+    public float[] mChromosome;
 
     // --- functions:
     /**
@@ -42,7 +42,7 @@ public class Gene
     public Gene()
     {
         // allocating memory for the chromosome array
-        mChromosome = new int[GeneticAlgorithm.CHROMOSOME_SIZE];
+        mChromosome = new float[GeneticAlgorithm.CHROMOSOME_SIZE];
         // initializing fitness
         mFitness = 0.0f;
         ran = new Random();
@@ -93,7 +93,7 @@ public class Gene
     }
 
     /**
-     * Mutates the gene randomly with either +1 or -1
+     * Mutates the gene randomly with either +1 or -1 or 0
      */
     public void mutate()
     {
@@ -125,7 +125,7 @@ public class Gene
      * @param index: the position on the array of the element we want to access
      * @return the value of the element we want to access (0 or 1)
      */
-    public int getChromosomeElement(int index) { return mChromosome[index]; }
+    public float getChromosomeElement(int index) { return mChromosome[index]; }
 
     /**
      * Sets a <b>value</b> to the element at position <b>index</b> of the mChromosome array
