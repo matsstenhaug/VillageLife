@@ -9,21 +9,28 @@ public class VillageLifeSimulator : MonoBehaviour {
 	int iteration = 0;
 	int dead = 0;
 	int newBorns = 0;
-	int kills = 0;
+	public int kills = 0;
 	int ageDeaths = 0;
 	int CanHaveKidsThresh = 42;
 	int MAX_SUPPORT = 500;
+    public float damageDealt = 0;
 
     int createdDiseases = 0;
 
     int itLastDisease = 1;
+
+    bool isSimulation = false;
 
     public ArrayList getEntities()
     {
 
         return ents;
     }
-
+    
+    public int getIterations()
+    {
+        return iteration;
+    }
     
     public void Start(ArrayList ents, Disease d)
     {
@@ -49,28 +56,32 @@ public class VillageLifeSimulator : MonoBehaviour {
 	}
 
     #region Interactions Updates
-    void UpdateInteractions(){
-		foreach(Entity e in ents) {
+    ArrayList UpdateInteractions(ArrayList ents){
+        ArrayList entities = new ArrayList(ents);
+        foreach (Entity e in entities) {
 			e.hasLived = true;
 			meetPeople(e);
 		}
-		foreach(Entity e in ents) {
-			// give birth to new children.
-			// Make the child dependant on the parents??
-			if(e.isPregnant){
-				//Debug.Log("Child Created");
-				Entity newEnt = new Entity(50,Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(13,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,20));
-				e.isPregnant = false;
-				e.children.Add(newEnt);
-				e.partner.children.Add(newEnt);
-				children.Add(newEnt);
-				newBorns++;
-			}
-			e.hasLived = false; // resets and makes ready for next iteration
-			e.IncreaseAge();
+        foreach (Entity e in entities)
+        {
+            // give birth to new children.
+            // Make the child dependant on the parents??
+            if (e.isPregnant)
+            {
+                //Debug.Log("Child Created");
+                Entity newEnt = new Entity(50, Random.Range(1, 101), new ArrayList(), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
+                e.isPregnant = false;
+                e.children.Add(newEnt);
+                e.partner.children.Add(newEnt);
+                children.Add(newEnt);
+                newBorns++;
+            }
+            e.hasLived = false; // resets and makes ready for next iteration
+            e.IncreaseAge();
 
-		}
-	}
+        }
+        return entities;
+    }
 	
 	// add STDs?
 	void makeLoveChild(Entity e, Entity e2){
@@ -201,8 +212,8 @@ public class VillageLifeSimulator : MonoBehaviour {
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
             GeneticAlgorithm ga = new GeneticAlgorithm(5, ents);
-            ga.StartAlgorithm();
-            Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
+            Gene g = ga.StartAlgorithm();
+            Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
             diseases.Add(d);
             itLastDisease = 1;
         }
@@ -233,12 +244,13 @@ public class VillageLifeSimulator : MonoBehaviour {
     #endregion
 
     #region People Updates
-    void UpdatePeople() {
-		int deaths = 0;
+    ArrayList UpdatePeople(ArrayList ents) {
+        ArrayList entities = new ArrayList(ents);
+        int deaths = 0;
 		int killed = 0;
 		int aged = 0;
         ArrayList deadPeeps = new ArrayList();
-		foreach (Entity e in ents) {
+		foreach (Entity e in entities) {
             //go through people and take damage from infections
             DamagePeople(e);
             //if entity.hp <= 0 -> Destroy and remove from list.
@@ -255,10 +267,12 @@ public class VillageLifeSimulator : MonoBehaviour {
         foreach(Entity e in deadPeeps)
             ents.Remove(e);
 
-        dead += deaths;
+        if(!isSimulation)
+            dead += deaths;
 		kills += killed;
 		ageDeaths += aged;
-	}
+        return entities;
+    }
 
     void DamagePeople(Entity e) {
         foreach (Disease d in e.infections) {
@@ -266,6 +280,8 @@ public class VillageLifeSimulator : MonoBehaviour {
             float damage = d.lethality;
             int index = e.infections.IndexOf(d);
             damage -= (damage * 100) * (float)e.immunities[index];
+            if(isSimulation)
+                damageDealt += damage;
             e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
             if((float)e.immunities[index] >= 100)
             {
@@ -281,17 +297,37 @@ public class VillageLifeSimulator : MonoBehaviour {
 
     public ArrayList SimulateUpdate(ArrayList ents)
     {
-        return ents;
+        isSimulation = true;
+        ArrayList entities = UpdateInteractions(ents);
+        ArrayList newList = new ArrayList();
+        foreach (Entity e in entities)
+        {
+            if (newList.Count == MAX_SUPPORT)
+                break;
+            newList.Add(e);
+        }
+        foreach (Entity e in children)
+        {
+            if (newList.Count == MAX_SUPPORT)
+                break;
+            newList.Add(e);
+        }
+        children = new ArrayList();
+        //ents = new ArrayList ();
+        entities = (ArrayList)newList.Clone();
+        entities = UpdatePeople(entities);
+        isSimulation = false;
+        return entities;
     }
 
     void Update () {
-		newBorns = 0;
+        newBorns = 0;
 		kills = 0;
 		ageDeaths = 0;
 		// Update interactions, update Diseases, update people.
-		UpdateInteractions ();
+		ArrayList entities = UpdateInteractions (ents);
 		ArrayList newList = new ArrayList ();
-		foreach (Entity e in ents) {
+		foreach (Entity e in entities) {
 			if(newList.Count == MAX_SUPPORT) 
 				break;
 			newList.Add(e);
@@ -307,7 +343,7 @@ public class VillageLifeSimulator : MonoBehaviour {
 		/////END OF INTERACTIONS//////
 
 		UpdateDiseases ();
-		UpdatePeople (); // take damage and stuff;
+		ents = UpdatePeople (ents); // take damage and stuff;
 
 		iteration++;
         itLastDisease++;

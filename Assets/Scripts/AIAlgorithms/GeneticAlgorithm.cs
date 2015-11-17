@@ -7,6 +7,7 @@ public class GeneticAlgorithm
     public static int POPULATION_SIZE = 40;
     public static int EVALUTION_TRIALS = 10;
     public static int GENERATION_SIZE = 100;
+    public static int SIMULATION_ITERATIONS = 100;
 
     ArrayList mPopulation;
     ArrayList currEnts;
@@ -92,7 +93,7 @@ public class GeneticAlgorithm
            (entities) 
             */
 
-            ((Gene)mPopulation[i]).mFitness = runExperiment(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, );
+            ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, currEnts);
 
 
             //// NEEDS TO BE CHANGED TO OUR SIMULATOR , NOT PACMAN ///
@@ -103,12 +104,24 @@ public class GeneticAlgorithm
         }
     }
 
-    public float runExperiment(int TRIALS, float[] chromosome, ArrayList ents)
+    public float getFitnessDisease(VillageLifeSimulator vls)
+    {
+        float killValue = 100;
+        float damageValue = 1;
+        float fitness = (vls.damageDealt * damageValue) + (vls.kills * killValue);
+        return fitness;
+    }
+
+    public float runExperimentDisease(int TRIALS, float[] chromosome, ArrayList ents)
     {
         VillageLifeSimulator vls = new VillageLifeSimulator();
         Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
         vls.Start(ents, d);
-        return 0;
+        while(vls.getEntities().Count > 0 || vls.getIterations() >= SIMULATION_ITERATIONS)
+        {
+            vls.SimulateUpdate(ents);
+        }
+        return getFitnessDisease(vls);
     }
 
     public void produceNextGeneration()
@@ -140,13 +153,15 @@ public class GeneticAlgorithm
 
     public Gene getGene(int index) { return (Gene)mPopulation[index]; }
 
-    public void StartAlgorithm() // return the best fit
+    public Gene StartAlgorithm() // return the best fit
     {
         // Initializing the population. A population contains few AI's
         // The small size is based on the few variables included and
         // the time it takes to run the GA
         GeneticAlgorithm population = new GeneticAlgorithm(POPULATION_SIZE);
         int generationCount = 0;
+        Gene bestGene = null;
+        ArrayList best = new ArrayList();
         // The algorithm runs until the population has undergone at least several mutations
         while (generationCount < GENERATION_SIZE)
         {
@@ -174,18 +189,27 @@ public class GeneticAlgorithm
                 {
                     maxFitness = currFitness;
                     bestIndividual = population.getGene(i).getPhenotype();
+                    best.Add(population.getGene(i));
                 }
             }
             if (population.size() > 0) { avgFitness = avgFitness / population.size(); }
-            string output = "Generation: " + generationCount;
-            output += "\t AvgFitness: " + avgFitness;
-            output += "\t MinFitness: " + minFitness + " (" + worstIndividual + ")";
-            output += "\t MaxFitness: " + maxFitness + " (" + bestIndividual + ")";
+            //string output = "Generation: " + generationCount;
+          //  output += "\t AvgFitness: " + avgFitness;
+          //  output += "\t MinFitness: " + minFitness + " (" + worstIndividual + ")";
+          //  output += "\t MaxFitness: " + maxFitness + " (" + bestIndividual + ")";
             //System.out.println(output);
             // produce next generation:
             population.produceNextGeneration();
             generationCount++;
         }
+        foreach(Gene g in best)
+        {
+            if(g.mFitness > bestGene.mFitness || bestGene==null)
+            {
+                bestGene = g;
+            }
+        }
+        return bestGene;
     }
 }
 
