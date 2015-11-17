@@ -14,6 +14,8 @@ public class VillageLifeSimulator : MonoBehaviour {
 	int CanHaveKidsThresh = 42;
 	int MAX_SUPPORT = 500;
 
+    int createdDiseases = 0;
+
     int itLastDisease = 1;
 
     // Use this for initialization
@@ -146,10 +148,14 @@ public class VillageLifeSimulator : MonoBehaviour {
 
     void UpdateDiseases() {
         //Create new Disease, based on chance.
-        CreateNewDisease();
+        if(createdDiseases == 0)
+        {
+            CreateNewDisease();
+            createdDiseases++;
+        }
         InfectPeople();
-        foreach(Disease d in diseases)
-            d.lifespan++;
+      //  foreach(Disease d in diseases)
+     //       d.lifespan++;
         CleanupDiseases();
     }
 
@@ -161,8 +167,8 @@ public class VillageLifeSimulator : MonoBehaviour {
                     current.Add(d);
                     break;
                 }
-            if(d.lifespan > d.lifetime)
-                current.Remove(d);
+            //if(d.lifespan > d.lifetime)
+               // current.Remove(d);
         }
         diseases = current;
     }
@@ -177,6 +183,7 @@ public class VillageLifeSimulator : MonoBehaviour {
         }
         if (a <= chance) { // X % chance
             //print("A new Disease has emerged! " + chance);
+            // EVOLUTIONIZE HERE :D //
             Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
             diseases.Add(d);
             itLastDisease = 1;
@@ -193,8 +200,11 @@ public class VillageLifeSimulator : MonoBehaviour {
 				foreach (Entity e in ents) {
 					if(!e.infections.Contains(d) && !e.immunities.Contains(d) ) { // Not infected and not immune
                         int a = Random.Range(0, 100);
-                        if(a <= (int)d.infectionRate) //infect
+                        if (a <= (int)d.infectionRate)
+                        { //infect
                             e.infections.Add(d);
+                            e.immunities.Add(0);
+                        }
 						//d.host = e;
 						//d.personalRes = (e.strength+e.hp) / 2;
 					}
@@ -235,7 +245,18 @@ public class VillageLifeSimulator : MonoBehaviour {
     void DamagePeople(Entity e) {
         foreach (Disease d in e.infections) {
             //int ra = Random.Range(0,100);
-            e.hp -= (d.lethality / d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
+            float damage = d.lethality;
+            int index = e.infections.IndexOf(d);
+            damage -= (damage * 100) * (float)e.immunities[index];
+            e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
+            if((float)e.immunities[index] >= 100)
+            {
+                e.immunities[index] = 100;
+            }
+            else
+            {
+            e.immunities[index] = (float) e.immunities[index] + d.resDropRate;
+            }
         }
     }
     #endregion

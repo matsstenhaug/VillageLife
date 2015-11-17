@@ -21,7 +21,7 @@ public class Disease {
 
 	public float lethality;
 	public float infectionRate;
-	public float resDropRate;
+	public float resDropRate; // mutated for each individual person once they are infected
 
     public Disease parent = null;
 

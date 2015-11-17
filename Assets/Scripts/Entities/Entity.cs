@@ -48,10 +48,10 @@ public class Entity
 	
 	public int sexPrefThresh; // also used for when he/she is of age (able to have a child)
 	
-	public ArrayList immunities;
+	public ArrayList immunities; // add %values for immunities. Indexes correspond to the infections list
+	public ArrayList infections;
 	public ArrayList weaknesses;
 	public ArrayList handicaps;
-	public ArrayList infections;
 	
 	
 	
@@ -119,14 +119,6 @@ public class Entity
 			setSexPref();
 			hasSexPref = true;
 		}
-	}
-	
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
-		
 	}
 }
 

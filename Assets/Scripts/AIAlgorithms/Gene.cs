@@ -1,19 +1,161 @@
 using UnityEngine;
 using System.Collections;
 
-public class Gene : MonoBehaviour
+public class Gene 
 {
 
-	// Use this for initialization
-	void Start ()
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
+    int intVar;
+    float floatVar;
+    double doubleVar;
+
+
+    public Gene(int i)
+    {
+        this.intVar = i;
+    }
+    public Gene(float f)
+    {
+        this.floatVar = f;
+    }
+    public Gene(double d)
+    {
+        this.doubleVar = d;
+    }
+
+    private Random ran;
+    /**
+     * The fitness is the current score the AI achieved in the last simulation.
+     * The score is calculated from an average over a number of games.
+     */
+    protected float mFitness;
+
+    /**
+     * The chromosome contains the values the ai uses for the switching between the states
+     */
+    protected int[] mChromosome;
+
+    // --- functions:
+    /**
+     * Sets up the gene for the computation. The initial fitness before the run is 0.
+     * The size of the gene is set in the algorithm.
+     */
+    public Gene()
+    {
+        // allocating memory for the chromosome array
+        mChromosome = new int[GeneticAlgorithm.CHROMOSOME_SIZE];
+        // initializing fitness
+        mFitness = 0.0f;
+        ran = new Random();
+    }
+
+    /**
+     * Randomizes the numbers on the mChromosome array to values between 1 and 100
+     */
+    public void randomizeChromosome()
+    {
+        for (int i = 0; i < mChromosome.Length; i++)
+        {
+            mChromosome[i] = Random.Range(1, 51);
+        }
+    }
+
+    /**
+     * Creates a number of offspring by combining (using crossover) the current
+     * Gene's chromosome with another Gene's chromosome.
+     * Usually two parents will produce an equal amount of offpsring, although
+     * in other reproduction strategies the number of offspring produced depends
+     * on the fitness of the parents.
+     * @param other: the other parent we want to create offpsring from
+     * @return Array of Gene offspring (default length of array is 2).
+     * These offspring will need to be added to the next generation.
+     */
+    public Gene[] reproduce(Gene other)
+    {
+        Gene[] result = new Gene[1];
+        for (int j = 0; j < result.Length; j++)
+        {
+            Gene temp = new Gene();
+            for (int i = 0; i < GeneticAlgorithm.CHROMOSOME_SIZE; i++)
+            {
+                int select = Random.Range(0, 2);
+                if (select == 0)
+                {
+                    temp.mChromosome[i] = this.mChromosome[i];
+                }
+                else
+                {
+                    temp.mChromosome[i] = other.mChromosome[i];
+                }
+            }
+            result[j] = temp;
+        }
+        return result;
+    }
+
+    /**
+     * Mutates the gene randomly with either +1 or -1
+     */
+    public void mutate()
+    {
+        for (int i = 0; i < mChromosome.Length; i++)
+        {
+            int temp = Random.Range(0,3) - 1;
+            mChromosome[i] += temp;
+            if (mChromosome[i] < 1)
+            {
+                mChromosome[i] = 1;
+            }
+            else if (mChromosome[i] > 50)
+            {
+                mChromosome[i] = 50;
+            }
+        }
+    }
+    /**
+     * Sets the fitness, after it is evaluated in the GeneticAlgorithm class.
+     * @param value: the fitness value to be set
+     */
+    public void setFitness(int value) { mFitness = value; }
+    /**
+     * @return the gene's fitness value
+     */
+    public float getFitness() { return mFitness; }
+    /**
+     * Returns the element at position <b>index</b> of the mChromosome array
+     * @param index: the position on the array of the element we want to access
+     * @return the value of the element we want to access (0 or 1)
+     */
+    public int getChromosomeElement(int index) { return mChromosome[index]; }
+
+    /**
+     * Sets a <b>value</b> to the element at position <b>index</b> of the mChromosome array
+     * @param index: the position on the array of the element we want to access
+     * @param value: the value we want to set at position <b>index</b> of the mChromosome array (0 or 1)
+     */
+    public void setChromosomeElement(int index, int value) { mChromosome[index] = value; }
+    /**
+     * Returns the size of the chromosome (as provided in the Gene constructor)
+     * @return the size of the mChromosome array
+     */
+    public int getChromosomeSize() { return mChromosome.Length; }
+    /**
+     * Corresponds the chromosome encoding to the phenotype, which is a representation
+     * that can be read, tested and evaluated by the main program.
+     * @return a String with a length equal to the chromosome size, composed of A's
+     * at the positions where the chromosome is 1 and a's at the posiitons
+     * where the chromosme is 0
+     */
+    public string getPhenotype()
+    {
+        // create an empty string
+        string result = "[";
+        for (int i = 0; i < mChromosome.Length; i++)
+        {
+            result += "" + mChromosome[i] + ",";
+        }
+        result += "]";
+        return result;
+    }
+
 }
 
