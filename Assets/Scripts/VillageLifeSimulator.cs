@@ -268,7 +268,7 @@ public class VillageLifeSimulator : MonoBehaviour {
             }
 		}
         foreach(Entity e in deadPeeps)
-            ents.Remove(e);
+            entities.Remove(e);
 
         if(!isSimulation)
             dead += deaths;
