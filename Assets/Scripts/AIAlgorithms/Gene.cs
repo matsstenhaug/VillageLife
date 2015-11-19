@@ -7,6 +7,7 @@ public class Gene
     int intVar;
     float floatVar;
     double doubleVar;
+	public bool isDisease = false;
 
 
     public Gene(int i)
@@ -51,10 +52,32 @@ public class Gene
     /**
      * Randomizes the numbers on the mChromosome array to values between 1 and 100
      */
-    public void randomizeChromosome()
+    public void randomizeChromosome() // Check if Disease. If so, 
+		/*
+				Connections: 
+				Leth: Mutate (1-100)
+				Spread: 100-Leth
+				Droprate: Mutate (leth-100)
+			 */
     {
+		// 0 = leth, 1 = spread, 2 = droprate
         for (int i = 0; i < mChromosome.Length; i++)
         {
+			//Rand(Leth/(LethMax/100), 100) / 2
+			//if disease
+
+			switch(i){
+			case 0:
+
+				break;
+			case 1:
+
+				break;
+
+			case 2:
+
+				break;
+			}
             mChromosome[i] = Random.Range(1, 51);
         }
     }
@@ -96,7 +119,12 @@ public class Gene
      * Mutates the gene randomly with either +1 or -1 or 0
      */
     public void mutate()
-    {
+	{/*
+				Connections: 
+				Leth: Mutate (1-100)
+				Spread: 100-Leth
+				Droprate: Mutate (leth-100)
+			 */
         for (int i = 0; i < mChromosome.Length; i++)
         {
             int temp = Random.Range(0,3) - 1;

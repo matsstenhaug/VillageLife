@@ -42,6 +42,16 @@ public class GeneticAlgorithm
     {
         for (int i = 0; i < mPopulation.Count; i++)
         {
+			((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, currEnts);
+
+			/*
+				Connections: 
+				Leth: Mutate (1-100)
+				Spread: 100-Leth
+				Droprate: Mutate (leth-100)
+			 */
+
+
             // the less iterations it takes for the population to die, the better. (for the diseases)
             // the more iterations it - the better (for entities)
 
@@ -93,7 +103,7 @@ public class GeneticAlgorithm
            (entities) 
             */
             //Debug.Log("Ents in : " + currEnts.Count);
-            ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, currEnts);
+            
 
 
             //// NEEDS TO BE CHANGED TO OUR SIMULATOR , NOT PACMAN ///
