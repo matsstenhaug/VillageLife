@@ -284,19 +284,18 @@ public class VillageLifeSimulator {
     void DamagePeople(Entity e) {
         foreach (Disease d in e.infections) {
             //int ra = Random.Range(0,100);
-            float damage = d.lethality;
+            //float damage = d.lethality;
             int index = e.infections.IndexOf(d);
-            damage -= (damage * 100) * (float)e.immunities[index];
-            if(isSimulation)
+            float damage = (d.lethality * (100 - (float)e.immunities[index]));
+            if (isSimulation)
                 damageDealt += damage;
             e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
-            if((float)e.immunities[index] >= 100)
-            {
+            Debug.Log("damage taken: " + damage + ", immunity level: " + e.immunities[index]);
+            if ((float)e.immunities[index] >= 100 || (float)e.immunities[index] + d.resDropRate >= 100) {
                 e.immunities[index] = 100f;
             }
-            else
-            {
-            e.immunities[index] = (float) e.immunities[index] + d.resDropRate;
+            else {
+                e.immunities[index] = (float) e.immunities[index] + d.resDropRate;
             }
         }
     }
