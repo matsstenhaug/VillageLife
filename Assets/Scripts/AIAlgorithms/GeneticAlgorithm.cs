@@ -117,10 +117,14 @@ public class GeneticAlgorithm
         VillageLifeSimulator vls = new VillageLifeSimulator();
         Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
         vls.Init(ents, d);
-		ArrayList upEnt = (ArrayList)ents.Clone();
+        ArrayList upEnt = new ArrayList();
+        foreach (Entity e in ents) {
+            upEnt.Add(e.Copy());
+        }
         //Debug.Log("no Ents: " + ents.Count);
-        while(upEnt.Count > 0 && vls.getIterations() <= SIMULATION_ITERATIONS)
-       {
+        while (upEnt.Count > 0 && vls.getIterations() <= SIMULATION_ITERATIONS)
+        {
+            //Debug.Log("Iteration no: " + vls.getIterations());
             upEnt = vls.SimulateUpdate(upEnt);
         }
 		//Debug.Log ("LOOP GOINE");

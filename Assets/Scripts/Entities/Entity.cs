@@ -120,5 +120,14 @@ public class Entity
 			hasSexPref = true;
 		}
 	}
+
+    public Entity Copy() {
+        Entity newEntity = new Entity(genderThresh, strength, immunities, stamina, hp, sexPrefThresh, intelligence, weaknesses, handicaps, potency, maxChildren);
+        newEntity.age = age;
+        newEntity.s = s;
+        newEntity.sp = sp;
+        newEntity.infections = infections;
+        return newEntity;
+    }
 }
 

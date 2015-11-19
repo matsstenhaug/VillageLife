@@ -211,7 +211,11 @@ public class VillageLifeSimulator {
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
             Debug.Log(ents.Count);
-            GeneticAlgorithm ga = new GeneticAlgorithm(5, ents);
+            ArrayList newList = new ArrayList();
+            foreach (Entity e in ents) {
+                newList.Add(e.Copy());
+            }
+            GeneticAlgorithm ga = new GeneticAlgorithm(5, newList);
             Gene g = ga.StartAlgorithm();
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
             /*
@@ -261,7 +265,7 @@ public class VillageLifeSimulator {
 				deaths++;
 				killed++;
                 deadPeeps.Add(e);
-			}else if(e.age > CanHaveKidsThresh){ // Basically kills the people who are Unable to reproduce.
+			} else if(e.age > CanHaveKidsThresh){ // Basically kills the people who are Unable to reproduce.
 				deaths++;
 				aged++;
                 deadPeeps.Add(e);
