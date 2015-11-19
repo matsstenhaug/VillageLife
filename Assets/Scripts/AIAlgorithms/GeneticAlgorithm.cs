@@ -117,17 +117,20 @@ public class GeneticAlgorithm
         VillageLifeSimulator vls = new VillageLifeSimulator();
         Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
         vls.Init(ents, d);
+		ArrayList upEnt = (ArrayList)ents.Clone();
         //Debug.Log("no Ents: " + ents.Count);
-        while(vls.getEntities().Count > 0 && vls.getIterations() >= SIMULATION_ITERATIONS)
-        {
-            vls.SimulateUpdate((ArrayList)ents.Clone());
+        while(upEnt.Count > 0 && vls.getIterations() <= SIMULATION_ITERATIONS)
+       {
+			Debug.Log("Iteration no: "+vls.getIterations());
+            upEnt = vls.SimulateUpdate(upEnt);
         }
+		//Debug.Log ("LOOP GOINE");
         return getFitnessDisease(vls);
     }
 
     public void produceNextGeneration()
     {
-
+		Debug.Log ("PRODUCENEXTGEN");
         // use one of the offspring techniques suggested in class (also applying any mutations) HERE
         GeneComparator mycomp = new GeneComparator();
         mPopulation.Sort((IComparer) mycomp);

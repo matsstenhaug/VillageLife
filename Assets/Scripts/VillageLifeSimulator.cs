@@ -317,6 +317,7 @@ public class VillageLifeSimulator : MonoBehaviour {
         entities = (ArrayList)newList.Clone();
         entities = UpdatePeople(entities);
         isSimulation = false;
+		iteration++;
         return entities;
     }
 
