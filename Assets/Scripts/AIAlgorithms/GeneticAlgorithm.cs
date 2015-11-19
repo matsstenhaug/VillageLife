@@ -6,7 +6,7 @@ public class GeneticAlgorithm
     public static int CHROMOSOME_SIZE = 3;
     public static int POPULATION_SIZE = 40;
     public static int EVALUTION_TRIALS = 10;
-    public static int GENERATION_SIZE = 100;
+    public static int GENERATION_SIZE = 5;
     public static int SIMULATION_ITERATIONS = 10;
 
     ArrayList mPopulation;
@@ -121,7 +121,6 @@ public class GeneticAlgorithm
         //Debug.Log("no Ents: " + ents.Count);
         while(upEnt.Count > 0 && vls.getIterations() <= SIMULATION_ITERATIONS)
        {
-			Debug.Log("Iteration no: "+vls.getIterations());
             upEnt = vls.SimulateUpdate(upEnt);
         }
 		//Debug.Log ("LOOP GOINE");
@@ -130,7 +129,6 @@ public class GeneticAlgorithm
 
     public void produceNextGeneration()
     {
-		Debug.Log ("PRODUCENEXTGEN");
         // use one of the offspring techniques suggested in class (also applying any mutations) HERE
         GeneComparator mycomp = new GeneComparator();
         mPopulation.Sort((IComparer) mycomp);
@@ -213,11 +211,12 @@ public class GeneticAlgorithm
         }
         foreach(Gene g in best)
         {
-            if(g.mFitness > bestGene.mFitness || bestGene==null)
+            if(bestGene == null || g.mFitness > bestGene.mFitness)
             {
                 bestGene = g;
             }
         }
+        Debug.Log(bestGene.getPhenotype());
         return bestGene;
     }
 }
