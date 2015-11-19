@@ -55,8 +55,8 @@ public class VillageLifeSimulator : MonoBehaviour {
 	}
 
     #region Interactions Updates
-    ArrayList UpdateInteractions(ArrayList ents){
-        ArrayList entities = new ArrayList(ents);
+    ArrayList UpdateInteractions(ArrayList enties){
+        ArrayList entities = new ArrayList(enties);
         foreach (Entity e in entities) {
 			e.hasLived = true;
 			meetPeople(e);
@@ -211,9 +211,12 @@ public class VillageLifeSimulator : MonoBehaviour {
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
             print(ents.Count);
+            /*
             GeneticAlgorithm ga = new GeneticAlgorithm(5, ents);
             Gene g = ga.StartAlgorithm();
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
+            */
+            Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
             diseases.Add(d);
             itLastDisease = 1;
         }
@@ -232,7 +235,7 @@ public class VillageLifeSimulator : MonoBehaviour {
                         if (a <= (int)d.infectionRate)
                         { //infect
                             e.infections.Add(d);
-                            e.immunities.Add(0);
+                            e.immunities.Add(0f);
                         }
 						//d.host = e;
 						//d.personalRes = (e.strength+e.hp) / 2;
@@ -285,7 +288,7 @@ public class VillageLifeSimulator : MonoBehaviour {
             e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
             if((float)e.immunities[index] >= 100)
             {
-                e.immunities[index] = 100;
+                e.immunities[index] = 100f;
             }
             else
             {
