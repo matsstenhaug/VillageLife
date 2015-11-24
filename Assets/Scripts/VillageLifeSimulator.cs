@@ -282,13 +282,19 @@ public class VillageLifeSimulator {
     }
 
     void DamagePeople(Entity e) {
+		// For some reason, this isSimulation printout CRASHES THE WHOLE THING!!
+		//if (isSimulation) {
+		//	Debug.Log ("DAMAGING PEOPLE");
+		//}
         foreach (Disease d in e.infections) {
             //int ra = Random.Range(0,100);
             //float damage = d.lethality;
             int index = e.infections.IndexOf(d);
             float damage = (d.lethality * (1 - ((float)e.immunities[index]) / 100));
-            if (isSimulation)
+            if (isSimulation){
                 damageDealt += damage;
+				Debug.Log("DmgDealt = "+damageDealt);
+			}
             e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
             //Debug.Log("damage taken: " + damage + ", immunity level: " + e.immunities[index]);
             if ((float)e.immunities[index] >= 100 || (float)e.immunities[index] + d.resDropRate >= 100) {
@@ -303,6 +309,7 @@ public class VillageLifeSimulator {
 
     public ArrayList SimulateUpdate(ArrayList ents)
     {
+		//Debug.Log ("Simulating Iteration");
         isSimulation = true;
         ArrayList entities = UpdateInteractions(ents);
         ArrayList newList = new ArrayList();

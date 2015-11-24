@@ -8,7 +8,7 @@ public class Gene
     float floatVar;
     double doubleVar;
 	public bool isDisease = false;
-
+	int maxLeth = 200;
 
     public Gene(int i)
     {
@@ -55,9 +55,9 @@ public class Gene
     public void randomizeChromosome() // Check if Disease. If so, 
 		/*
 				Connections: 
-				Leth: Mutate (1-100)
-				Spread: 100-Leth
-				Droprate: Mutate (leth-100)
+				(0) Leth: Mutate (1-100)
+				(1) Spread: 100-Leth
+				(2) Droprate: Mutate (leth-100)
 			 */
     {
 		// 0 = leth, 1 = spread, 2 = droprate
@@ -67,18 +67,18 @@ public class Gene
 			//if disease
 
 			switch(i){
-			case 0:
-
+			case 0://Lethality
+				mChromosome[i] = Random.Range(1,maxLeth);
 				break;
-			case 1:
-
+			case 1://Spread
+				mChromosome[i] = maxLeth-mChromosome[0];
 				break;
 
-			case 2:
-
+			case 2://DropRate
+				mChromosome[i] = (int)(Random.Range((mChromosome[0]/(maxLeth/100)),100)/2);
 				break;
 			}
-            mChromosome[i] = Random.Range(1, 51);
+            //mChromosome[i] = Random.Range(1, 51);
         }
     }
 
@@ -125,9 +125,32 @@ public class Gene
 				Spread: 100-Leth
 				Droprate: Mutate (leth-100)
 			 */
+
         for (int i = 0; i < mChromosome.Length; i++)
         {
-            int temp = Random.Range(0,3) - 1;
+			switch(i){
+			case 0://Lethality
+				int temp = Random.Range(0,3) - 1;
+				mChromosome[i] += temp;
+				if (mChromosome[i] < 1)
+				{
+					mChromosome[i] = 1;
+				}
+				else if (mChromosome[i] > maxLeth)
+				{
+					mChromosome[i] = maxLeth;
+				}
+				//mChromosome[i] = Random.Range(1,maxLeth);
+				break;
+			case 1://Spread
+				mChromosome[i] = (maxLeth-mChromosome[0]);
+				break;
+				
+			case 2://DropRate
+				mChromosome[i] = (int)(Random.Range((mChromosome[0]/(maxLeth/100)),100)/2);
+				break;
+			}
+           /*int temp = Random.Range(0,3) - 1;
             mChromosome[i] += temp;
             if (mChromosome[i] < 1)
             {
@@ -136,7 +159,7 @@ public class Gene
             else if (mChromosome[i] > 50)
             {
                 mChromosome[i] = 50;
-            }
+            }*/
         }
     }
     /**
@@ -179,7 +202,10 @@ public class Gene
         string result = "[";
         for (int i = 0; i < mChromosome.Length; i++)
         {
-            result += "" + mChromosome[i] + ",";
+			if( i == (mChromosome.Length - 1)){
+				result += "" + mChromosome[i];
+			}else
+            	result += "" + mChromosome[i] + ",";
         }
         result += "]";
         return result;

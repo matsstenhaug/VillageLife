@@ -43,6 +43,7 @@ public class GeneticAlgorithm
         for (int i = 0; i < mPopulation.Count; i++)
         {
 			((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, currEnts);
+			//Debug.Log("Fitness pop#"+i+": "+((Gene)mPopulation[i]).mFitness);
 
 			/*
 				Connections: 
