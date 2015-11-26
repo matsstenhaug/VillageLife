@@ -63,10 +63,10 @@ public class Entity
 		hetero, bi, homo, a
 	}
 	
-	public Entity(int genderThreshold, float strength, ArrayList immunities, 
+	public Entity(int age, int genderThreshold, float strength, ArrayList immunities, 
 	              float stamina, float hp, int sexPrefThresh, float intelligence,
 	              ArrayList weaknesses, ArrayList handicaps, float potency, int maxC){
-		this.age = 0;
+		this.age = age;
 		this.genderThresh = genderThreshold;
 		this.strength = strength;
 		this.immunities = immunities;
@@ -121,9 +121,13 @@ public class Entity
 		}
 	}
 
+    public void infect(Disease d) {
+        infections.Add(d);
+        immunities.Add(0f);
+    }
+
     public Entity Copy() {
-        Entity newEntity = new Entity(genderThresh, strength, immunities, stamina, hp, sexPrefThresh, intelligence, weaknesses, handicaps, potency, maxChildren);
-        newEntity.age = age;
+        Entity newEntity = new Entity(age, genderThresh, strength, immunities, stamina, hp, sexPrefThresh, intelligence, weaknesses, handicaps, potency, maxChildren);
         newEntity.s = s;
         newEntity.sp = sp;
         newEntity.infections = infections;

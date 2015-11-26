@@ -48,7 +48,7 @@ public class VillageLifeSimulator {
 		diseases = new ArrayList ();
 		// creates 20 Entities.
 		for (int i = 0; i < 50; i ++) {
-			Entity e = new Entity(50,Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(12,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,5));
+			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(12,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,5));
 			ents.Add(e);
 		}
 		Debug.Log ("Created " + ents.Count + " Entities.");
@@ -68,7 +68,7 @@ public class VillageLifeSimulator {
             if (e.isPregnant)
             {
                 //Debug.Log("Child Created");
-                Entity newEnt = new Entity(50, Random.Range(1, 101), new ArrayList(), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
+                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), new ArrayList(), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
                 e.isPregnant = false;
                 e.children.Add(newEnt);
                 e.partner.children.Add(newEnt);
@@ -172,17 +172,19 @@ public class VillageLifeSimulator {
     #region Diseases Updates
     //Decrease Diseases by resistanceDropRate
 
-    void UpdateDiseases() {
+    ArrayList UpdateDiseases(ArrayList ents) {
+        ArrayList entities = new ArrayList(ents);
         //Create new Disease, based on chance.
-        if(createdDiseases == 0)
+        if (createdDiseases == 0)
         {
-            CreateNewDisease();
+            entities = CreateNewDisease(entities);
             createdDiseases++;
         }
-        InfectPeople();
+        entities = InfectPeople(entities);
       //  foreach(Disease d in diseases)
      //       d.lifespan++;
         CleanupDiseases();
+        return entities;
     }
 
     void CleanupDiseases() {
@@ -199,9 +201,10 @@ public class VillageLifeSimulator {
         diseases = current;
     }
 
-    void CreateNewDisease(){
-		//Random - if higher than X -> create new Disease
-		int a = Random.Range (0,100);
+    ArrayList CreateNewDisease(ArrayList ents) {
+        ArrayList entities = new ArrayList(ents);
+        //Random - if higher than X -> create new Disease
+        int a = Random.Range (0,100);
         float chance = 100; 
         if(diseases.Count > 0) {
             //print("chance = (Poulation " + ents.Count + " / VillageSupport " + MAX_SUPPORT + ") * time " + itLastDisease + " / currentDiseases " + Diseases.Count);
@@ -223,30 +226,57 @@ public class VillageLifeSimulator {
             */
             diseases.Add(d);
             itLastDisease = 1;
+            ((Entity)entities[Random.Range(0, ents.Count)]).infect(d);
         }
-
-	}
+        return entities;
+    }
 
     //TODO: Spread Diseases (with chance of mutation) 
-    // 
-
-    void InfectPeople() {
-		if(diseases.Count > 0){
-			foreach (Disease d in diseases) {
-				foreach (Entity e in ents) {
-					if(!e.infections.Contains(d) && !e.immunities.Contains(d) ) { // Not infected and not immune
-                        int a = Random.Range(0, 100);
-                        if (a <= (int)d.infectionRate)
-                        { //infect
-                            e.infections.Add(d);
-                            e.immunities.Add(0f);
+    ArrayList InfectPeople(ArrayList ents) {
+        ArrayList entities = new ArrayList(ents);
+        bool immunitiesMatter = false;
+        foreach (Entity e in entities) {
+            for (int i = 0; i < e.infections.Count; i++) {
+                if ((float)e.immunities[i] < 100 || !immunitiesMatter) { // Not immune
+                    Disease d = (Disease)e.infections[i];
+                    foreach (Entity victim in entities) {
+                        if(!e.Equals(victim)) { // It'd be silly to infect yourself
+                            int rng = Random.Range(0, 10); // 10% chance of encountering others
+                            if(rng == 0) {
+                                int a = Random.Range(0, 100);
+                                if (a <= (int)d.infectionRate && !victim.infections.Contains(d)) {
+                                    victim.infect(d);
+                                }
+                            }
                         }
-						//d.host = e;
-						//d.personalRes = (e.strength+e.hp) / 2;
-					}
-				}
-			}
-		}
+                    }
+                }
+            }
+        }
+        /* Disease controlled spreading
+        if (diseases.Count > 0) {
+            foreach (Disease d in diseases) {
+                foreach (Entity e in entities) {
+                    for (int i = 0; i < e.infections.Count; i++)
+                        if(e.infections[i] != d) { // Not infected
+                            goto infect;
+                        }
+                    if (e.infections.Count == 0)
+                        goto infect;
+                    break;
+
+                    infect:
+                    int a = Random.Range(0, 100);
+                    if (a <= (int)d.infectionRate) {
+                        e.infect(d);
+                    }
+                    //d.host = e;
+                    //d.personalRes = (e.strength+e.hp) / 2;
+                }
+            }
+        }
+        */
+        return entities;
 	}
     #endregion
 
@@ -293,7 +323,7 @@ public class VillageLifeSimulator {
             float damage = (d.lethality * (1 - ((float)e.immunities[index]) / 100));
             if (isSimulation){
                 damageDealt += damage;
-				Debug.Log("DmgDealt = "+damageDealt);
+				//Debug.Log("DmgDealt = "+damageDealt);
 			}
             e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
             //Debug.Log("damage taken: " + damage + ", immunity level: " + e.immunities[index]);
@@ -328,6 +358,7 @@ public class VillageLifeSimulator {
         children = new ArrayList();
         //ents = new ArrayList ();
         entities = (ArrayList)newList.Clone();
+        entities = InfectPeople(entities);
         entities = UpdatePeople(entities);
         isSimulation = false;
 		iteration++;
@@ -354,9 +385,9 @@ public class VillageLifeSimulator {
 		children = new ArrayList ();
 		//ents = new ArrayList ();
 		ents = (ArrayList)newList.Clone ();
-		/////END OF INTERACTIONS//////
+        /////END OF INTERACTIONS//////
 
-		UpdateDiseases ();
+        ents = UpdateDiseases(ents);
 		ents = UpdatePeople (ents); // take damage and stuff;
 
 		iteration++;
