@@ -8,7 +8,7 @@ public class Gene
     float floatVar;
     double doubleVar;
 	public bool isDisease = false;
-	int maxLeth = 200;
+	int maxLeth = 100;
 
     public Gene(int i)
     {
@@ -110,6 +110,9 @@ public class Gene
                     temp.mChromosome[i] = other.mChromosome[i];
                 }
             }
+            
+				mChromosome[1] = maxLeth - mChromosome[0];
+           
             result[j] = temp;
         }
         return result;

@@ -117,9 +117,12 @@ public class GeneticAlgorithm
 
     public float getFitnessDisease(VillageLifeSimulator vls)
     {
-        float killValue = 100;
+        float killValue = 300;
         float damageValue = 1;
+        //Debug.Log("Damage Dealt: "+vls.damageDealt);
+        //Debug.Log("Kills: " + vls.kills);
         float fitness = (vls.damageDealt * damageValue) + (vls.kills * killValue);
+        //Debug.Log(fitness+"\n");
         return fitness;
     }
 
@@ -135,7 +138,7 @@ public class GeneticAlgorithm
         //Debug.Log("no Ents: " + ents.Count);
         while (upEnt.Count > 0 && vls.getIterations() <= SIMULATION_ITERATIONS)
         {
-            //Debug.Log("Iteration no: " + vls.getIterations());
+            //Debug.Log("Simulated Iteration no: " + vls.getIterations());
             upEnt = vls.SimulateUpdate(upEnt);
         }
 		//Debug.Log ("LOOP GOINE");
@@ -231,7 +234,7 @@ public class GeneticAlgorithm
                 bestGene = g;
             }
         }
-        Debug.Log(bestGene.getPhenotype());
+        Debug.Log(bestGene.getPhenotype()+", Fitness: " + bestGene.mFitness+".");
         return bestGene;
     }
 }
