@@ -34,5 +34,9 @@ public class Disease {
 		this.resDropRate = resDR;
         this.parent = par;
 	}
+    public string getDoom()
+    {
+        return "L"+lethality+"I"+infectionRate+"R"+resDropRate;
+    }
 }
 
