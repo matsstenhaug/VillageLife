@@ -43,7 +43,7 @@ public class GeneticAlgorithm : MonoBehaviour
         //Debug.Log("New Gen! mpop is: " + mPopulation.Count);
         for (int i = 0; i < mPopulation.Count; i++) {
             ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome);
-			Debug.Log("Fitness pop#" + i + ": " + ((Gene)mPopulation[i]).mFitness);
+			//Debug.Log("Fitness pop#" + i + ": " + ((Gene)mPopulation[i]).mFitness);
 
 			/*
 				Connections: 
@@ -133,9 +133,11 @@ public class GeneticAlgorithm : MonoBehaviour
         vls.isSimulation = true;
         while (vls.getEntities().Count > 0 && vls.getIterations() <= TRIALS) {
             //Debug.Log("Simulated Iteration no: " + vls.getIterations());
-            vls.SimulateUpdate();
+            vls.SimulateNextStep();
         }
 
+        #region Debug Prints
+        /*
         int infected = 0;
         Debug.Log("Dmg = " + vls.damageDealt);
         Debug.Log("Current Chromosomes: [" + chromosome[0] + ", " + chromosome[1] + ", " + chromosome[2] + "]");
@@ -144,6 +146,8 @@ public class GeneticAlgorithm : MonoBehaviour
         Debug.Log("Population size: " + vls.getEntities().Count);
         Debug.Log("People Infected by Disease: " + infected);
         Debug.Log("Disease Count: " + vls.getDiseases().Count);
+        */
+        #endregion
         float fitness = getFitnessDisease(vls);
         Destroy(vls);
         return fitness;

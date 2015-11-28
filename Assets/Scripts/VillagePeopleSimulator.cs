@@ -238,6 +238,37 @@ public class VillagePeopleSimulator : MonoBehaviour {
     //TODO: Spread Diseases (with chance of mutation) 
     ArrayList InfectPeople(ArrayList ents) {
         ArrayList entities = new ArrayList(ents);
+        if (diseases.Count > 0) { //Can spread diseases, even when immune
+            foreach (Disease d in diseases) {
+                int victimCounter = 0;
+                foreach (Entity e in entities) {
+                    if (e.infections.Contains(d))
+                        victimCounter++;
+                }
+                //int cnt = 0;
+                foreach (Entity e in entities) {
+                    //if (!isSimulation) print("Spread count Entities: " + ++cnt + "/" + entities.Count);
+                    if (!e.infections.Contains(d)) { // Not infected
+                        goto infect;
+                    }
+                    if (e.infections.Count == 0)
+                        goto infect;
+                    continue;
+
+                infect:
+                    float rng = Random.Range(0f, entities.Count / 10f); // Peeps has 10% chance of encountering others
+                    //if(!isSimulation) print("Rolled: " + rng + "/" + victimCounter);
+                    if (rng < victimCounter) {
+                        int a = Random.Range(0, 100);
+                        if (a <= (int)d.infectionRate) {
+                            e.infect(d);
+                        }
+                    }
+                }
+            }
+        }
+        #region Previous attempts of spreading diseases
+        // Spreads diseases in a terrible manner (the earlier in the arraylist the first victim is, the more gets infected
         /*bool immunitiesMatter = true;
         foreach (Entity e in entities) {
             //if (!isSimulation) Debug.Log("# of infections in host " + e.infections.Count);
@@ -245,26 +276,28 @@ public class VillagePeopleSimulator : MonoBehaviour {
                 if ((float)e.immunities[i] < 100 || !immunitiesMatter) { // Not immune
                     Disease d = (Disease)e.infections[i];
                     foreach (Entity victim in entities) {
-                        if(!e.Equals(victim)) { // It'd be silly to infect yourself
-                            //int rng = Random.Range(0, 10); // 10% chance of encountering others
-                            //if(rng == 0) {
+                        if (!e.Equals(victim) && !victim.infections.Contains(d)) { // It'd be silly to infect yourself
+                            int rng = Random.Range(0, 10); // 10% chance of encountering others
+                            if (rng == 0) {
                                 int a = Random.Range(0, 100);
-                                if (a <= (int)d.infectionRate ) {//&& !victim.infections.Contains(d)) {
+                                if (a <= (int)d.infectionRate) {//&& !victim.infections.Contains(d)) {
                                     victim.infect(d);
                                 }
-                            //}
+                            }
                         }
                     }
                 }
             }
         }*/
-        if (diseases.Count > 0) {
+        // Spreads uniformly across population
+        /*if (diseases.Count > 0) {
             foreach (Disease d in diseases) {
                 foreach (Entity e in entities) {
-                    for (int i = 0; i < e.infections.Count; i++)
+                    for (int i = 0; i < e.infections.Count; i++) {
                         if (e.infections[i] != d) { // Not infected
                             goto infect;
                         }
+                    }
                     if (e.infections.Count == 0)
                         goto infect;
                     break;
@@ -274,11 +307,11 @@ public class VillagePeopleSimulator : MonoBehaviour {
                     if (a <= (int)d.infectionRate) {
                         e.infect(d);
                     }
-                    //d.host = e;
-                    //d.personalRes = (e.strength+e.hp) / 2;
                 }
             }
-        }
+        }*/
+        #endregion
+
         return entities;
 	}
     #endregion
@@ -344,7 +377,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
     }
     #endregion
 
-    public void SimulateUpdate() {
+    public void SimulateNextStep() {
 		//Debug.Log ("Simulating Iteration " + isSimulation);
         ents = UpdateInteractions(ents);
         ArrayList newList = new ArrayList();
@@ -366,7 +399,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		iteration++;
     }
 
-    public void PrevUpdate () {
+    public void NextStep () {
         newBorns = 0;
 		kills = 0;
 		ageDeaths = 0;
@@ -408,7 +441,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		//findPartner (); // create in main class, so that it goes through all the entities.
 		if (ents.Count == 0) {
             ////// ENDS THE SIMULATION IF NO PEOPLE ARE ALIVE //////
-			//Destroy(this);
+			Destroy(this);
 		}
 	}
 }

@@ -13,6 +13,11 @@ public class DrawSimulation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(vls.getEntities().Count > 0)
-            vls.PrevUpdate();
+            vls.NextStep();
 	}
+
+    public void newVillage() {
+        vls = new VillagePeopleSimulator();
+        vls.Start();
+    }
 }

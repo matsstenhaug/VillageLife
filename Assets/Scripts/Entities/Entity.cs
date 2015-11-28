@@ -65,7 +65,7 @@ public class Entity
 	
 	public Entity(int age, int genderThreshold, float strength, 
 	              float stamina, float hp, int sexPrefThresh, float intelligence,
-	              ArrayList weaknesses, ArrayList handicaps, float potency, int maxC){
+	              ArrayList weaknesses, ArrayList handicaps, float potency, int maxC) {
 		this.age = age;
 		this.genderThresh = genderThreshold;
 		this.strength = strength;
@@ -85,9 +85,9 @@ public class Entity
 		}
 		infections = new ArrayList ();
         immunities = new ArrayList();
-    //Debug.Log ("Gender: " + s);
 
-}
+        //Debug.Log ("Gender: " + s);
+    }
 	
 	
 	public void setSexPref(){
