@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class GeneticAlgorithm
+public class GeneticAlgorithm : MonoBehaviour
 {
     public static int CHROMOSOME_SIZE = 3;
     public static int POPULATION_SIZE = 40;
@@ -10,11 +10,11 @@ public class GeneticAlgorithm
     public static int SIMULATION_ITERATIONS = 10;
 
     ArrayList mPopulation;
-    ArrayList currEnts = new ArrayList();
+    VillagePeopleSimulator currVPS;
 
-    public GeneticAlgorithm(int size, ArrayList ents)
+    public GeneticAlgorithm(int size, VillagePeopleSimulator vps)
     {
-        this.currEnts = ents;
+        currVPS = vps;
 
         // initialize the arraylist and each gene's initial weights HERE
         mPopulation = new ArrayList();
@@ -40,10 +40,10 @@ public class GeneticAlgorithm
 
     public void evaluateGeneration()
     {
-        for (int i = 0; i < mPopulation.Count; i++)
-        {
-			((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome, currEnts);
-			//Debug.Log("Fitness pop#"+i+": "+((Gene)mPopulation[i]).mFitness);
+        //Debug.Log("New Gen! mpop is: " + mPopulation.Count);
+        for (int i = 0; i < mPopulation.Count; i++) {
+            ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome);
+			Debug.Log("Fitness pop#" + i + ": " + ((Gene)mPopulation[i]).mFitness);
 
 			/*
 				Connections: 
@@ -115,7 +115,7 @@ public class GeneticAlgorithm
         }
     }
 
-    public float getFitnessDisease(VillageLifeSimulator vls)
+    public float getFitnessDisease(VillagePeopleSimulator vls)
     {
         float killValue = 300;
         float damageValue = 1;
@@ -126,23 +126,27 @@ public class GeneticAlgorithm
         return fitness;
     }
 
-    public float runExperimentDisease(int TRIALS, float[] chromosome, ArrayList ents)
-    {
-        VillageLifeSimulator vls = new VillageLifeSimulator();
+    public float runExperimentDisease(int TRIALS, float[] chromosome) {
         Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
-        vls.Init(ents, d);
-        ArrayList upEnt = new ArrayList();
-        foreach (Entity e in ents) {
-            upEnt.Add(e.Copy());
-        }
-        //Debug.Log("no Ents: " + ents.Count);
-        while (upEnt.Count > 0 && vls.getIterations() <= SIMULATION_ITERATIONS)
-        {
+        VillagePeopleSimulator vls = currVPS.Clone();
+        vls.AddDisease(d);
+        vls.isSimulation = true;
+        while (vls.getEntities().Count > 0 && vls.getIterations() <= TRIALS) {
             //Debug.Log("Simulated Iteration no: " + vls.getIterations());
-            upEnt = vls.SimulateUpdate(upEnt);
+            vls.SimulateUpdate();
         }
-		//Debug.Log ("LOOP GOINE");
-        return getFitnessDisease(vls);
+
+        int infected = 0;
+        Debug.Log("Dmg = " + vls.damageDealt);
+        Debug.Log("Current Chromosomes: [" + chromosome[0] + ", " + chromosome[1] + ", " + chromosome[2] + "]");
+        foreach(Entity e in vls.getEntities())
+            if(e.infections.Count > 0) { infected++; }
+        Debug.Log("Population size: " + vls.getEntities().Count);
+        Debug.Log("People Infected by Disease: " + infected);
+        Debug.Log("Disease Count: " + vls.getDiseases().Count);
+        float fitness = getFitnessDisease(vls);
+        Destroy(vls);
+        return fitness;
     }
 
     public void produceNextGeneration()
@@ -225,6 +229,7 @@ public class GeneticAlgorithm
             //System.out.println(output);
             // produce next generation:
             produceNextGeneration();
+            //Debug.Log(generationCount);
             generationCount++;
         }
         foreach(Gene g in best)
