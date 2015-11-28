@@ -130,7 +130,9 @@ public class Entity
         Entity newEntity = new Entity(age, genderThresh, strength, immunities, stamina, hp, sexPrefThresh, intelligence, weaknesses, handicaps, potency, maxChildren);
         newEntity.s = s;
         newEntity.sp = sp;
-        newEntity.infections = infections;
+        foreach (Disease d in infections) {
+            newEntity.infections.Add(d);
+        }
         return newEntity;
     }
 }
