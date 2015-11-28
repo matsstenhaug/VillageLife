@@ -13,6 +13,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 	int CanHaveKidsThresh = 42;
 	int MAX_SUPPORT = 500;
     public float damageDealt = 0;
+    string state;
 
     int createdDiseases = 0;
 
@@ -436,6 +437,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
         }
         if(infected > 0)
             averageDiseases /= (float)infected;
+        state = string.Format("{0,8}, {1,14}, {2,12}.", "Year: " + iteration.ToString("D2"), "Villagers: " + ents.Count.ToString("D3"), "Body Count: " + (kills + ageDeaths).ToString("D2"));
         Debug.Log ("Iteration: " + iteration + ". Entities: " + ents.Count + ". Dead: "+dead +", Babies: "+newBorns+", kills: "+kills+", oldies: "+ageDeaths + 
             ", infected: " + infected + ", average: " + (float)averageDiseases + ", Diseases: " + diseases.Count);
 		//findPartner (); // create in main class, so that it goes through all the entities.
@@ -444,5 +446,9 @@ public class VillagePeopleSimulator : MonoBehaviour {
 			Destroy(this);
 		}
 	}
+
+    public string GetState() {
+        return state;
+    }
 }
 
