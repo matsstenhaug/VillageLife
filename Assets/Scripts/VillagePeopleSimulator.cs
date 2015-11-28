@@ -185,9 +185,8 @@ public class VillagePeopleSimulator : MonoBehaviour {
     ArrayList UpdateDiseases(ArrayList ents) {
         ArrayList entities = new ArrayList(ents);
         //Create new Disease, based on chance.
-        if (createdDiseases == 0) {
+        if (diseases.Count < 1) {
             entities = CreateNewDisease(entities);
-            createdDiseases++;
         }
         entities = InfectPeople(entities);
         //foreach(Disease d in diseases)
