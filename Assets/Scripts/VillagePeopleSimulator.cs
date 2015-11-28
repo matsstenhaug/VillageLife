@@ -62,7 +62,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		// creates 20 Entities.
 		for (int i = 0; i < 50; i ++) {
 			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1,101), Random.Range(1,101), 100, 
-                Random.Range(12,18), Random.Range(1,1001), new ArrayList(), new ArrayList(), Random.Range(1,101), Random.Range(1,5));
+                Random.Range(12,18), Random.Range(1,1001), new ArrayList(), new ArrayList(), Random.Range(1,101), Random.Range(1,5), Random.Range(1,3));
 			ents.Add(e);
 		}
 		Debug.Log ("Created " + ents.Count + " Entities.");
@@ -80,7 +80,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
             // Make the child dependant on the parents??
             if (e.isPregnant) {
                 //Debug.Log("Child Created");
-                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
+                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20), Random.Range(1,3));
                 e.isPregnant = false;
                 e.children.Add(newEnt);
                 e.partner.children.Add(newEnt);
@@ -337,6 +337,10 @@ public class VillagePeopleSimulator : MonoBehaviour {
 				aged++;
                 deadPeeps.Add(e);
             }
+            else
+            {
+                RegeneratePeople(e);
+            }
 		}
         foreach(Entity e in deadPeeps)
             entities.Remove(e);
@@ -360,7 +364,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
             //int ra = Random.Range(0,100);
             //float damage = d.lethality;
             int index = e.infections.IndexOf(d);
-            float damage = (d.lethality * (1 - ((float)e.immunities[index]) / 100));
+            float damage = ((d.lethality * (1 - ((float)e.immunities[index]) / 100))/100) * e.maxHealth;
             if (isSimulation) {
                 damageDealt += damage;
 				//Debug.Log("DmgDealt = "+damageDealt);
@@ -376,6 +380,16 @@ public class VillagePeopleSimulator : MonoBehaviour {
         }
     }
     #endregion
+
+    public void RegeneratePeople(Entity e)
+    {
+        float reg = (e.vitality * (e.hp / e.maxHealth)) * 10;
+       // print("Regen: "+reg + " at "+e.hp+" hp.");
+        e.hp += reg;
+
+        if (e.hp > e.maxHealth)
+            e.hp = e.maxHealth;
+    }
 
     public void SimulateNextStep() {
 		//Debug.Log ("Simulating Iteration " + isSimulation);
@@ -438,7 +452,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
             averageDiseases /= (float)infected;
         Debug.Log ("Iteration: " + iteration + ". Entities: " + ents.Count + ". Dead: "+dead +", Babies: "+newBorns+", kills: "+kills+", oldies: "+ageDeaths + 
             ", infected: " + infected + ", average: " + (float)averageDiseases + ", Diseases: " + diseases.Count);
-		//findPartner (); // create in main class, so that it goes through all the entities.
+        //findPartner (); // create in main class, so that it goes through all the entities.
 		if (ents.Count == 0) {
             ////// ENDS THE SIMULATION IF NO PEOPLE ARE ALIVE //////
 			Destroy(this);

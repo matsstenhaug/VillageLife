@@ -43,6 +43,8 @@ public class Entity
 	public float hp;
 	public float intelligence;
 	public float potency;
+    public float vitality;
+    public float maxHealth;
 	
 	public float resourceConsumpt;
 	
@@ -65,7 +67,7 @@ public class Entity
 	
 	public Entity(int age, int genderThreshold, float strength, 
 	              float stamina, float hp, int sexPrefThresh, float intelligence,
-	              ArrayList weaknesses, ArrayList handicaps, float potency, int maxC) {
+	              ArrayList weaknesses, ArrayList handicaps, float potency, int maxC, float vit) {
 		this.age = age;
 		this.genderThresh = genderThreshold;
 		this.strength = strength;
@@ -83,8 +85,11 @@ public class Entity
 		}else{
 			s = sex.female;
 		}
+        maxHealth = vit * 100;
+        this.hp = maxHealth;
 		infections = new ArrayList ();
         immunities = new ArrayList();
+        this.vitality = vit;
 
         //Debug.Log ("Gender: " + s);
     }
@@ -127,7 +132,7 @@ public class Entity
     }
 
     public Entity Copy() {
-        Entity newEntity = new Entity(age, genderThresh, strength, stamina, hp, sexPrefThresh, intelligence, weaknesses, handicaps, potency, maxChildren);
+        Entity newEntity = new Entity(age, genderThresh, strength, stamina, hp, sexPrefThresh, intelligence, weaknesses, handicaps, potency, maxChildren, vitality);
         newEntity.s = s;
         newEntity.sp = sp;
         foreach (Disease d in infections) {
