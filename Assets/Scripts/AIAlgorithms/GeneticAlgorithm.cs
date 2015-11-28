@@ -143,6 +143,7 @@ public class GeneticAlgorithm : MonoBehaviour
             if(e.infections.Count > 0) { infected++; }
         Debug.Log("Population size: " + vls.getEntities().Count);
         Debug.Log("People Infected by Disease: " + infected);
+        Debug.Log("Disease Count: " + vls.getDiseases().Count);
         float fitness = getFitnessDisease(vls);
         Destroy(vls);
         return fitness;

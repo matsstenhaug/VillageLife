@@ -21,7 +21,8 @@ public class VillagePeopleSimulator : MonoBehaviour {
     public bool isSimulation = false;
 
     public ArrayList getEntities() { return ents; }
-    
+    public ArrayList getDiseases() { return diseases; }
+
     public int getIterations() { return iteration; }
     
     public void InitSimulation(ArrayList ents, Disease d) {
@@ -60,7 +61,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		diseases = new ArrayList ();
 		// creates 20 Entities.
 		for (int i = 0; i < 50; i ++) {
-			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1,101), new ArrayList(), Random.Range(1,101), 100, 
+			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1,101), Random.Range(1,101), 100, 
                 Random.Range(12,18), Random.Range(1,1001), new ArrayList(), new ArrayList(), Random.Range(1,101), Random.Range(1,5));
 			ents.Add(e);
 		}
@@ -79,7 +80,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
             // Make the child dependant on the parents??
             if (e.isPregnant) {
                 //Debug.Log("Child Created");
-                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), new ArrayList(), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
+                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
                 e.isPregnant = false;
                 e.children.Add(newEnt);
                 e.partner.children.Add(newEnt);
@@ -221,12 +222,12 @@ public class VillagePeopleSimulator : MonoBehaviour {
         if (a <= chance) { // X % chance
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
-            /*
             GeneticAlgorithm ga = new GeneticAlgorithm(5, this);
             Gene g = ga.StartAlgorithm();
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
-            */
+            /*
             Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
+            */
             diseases.Add(d);
             itLastDisease = 1;
             ((Entity)entities[Random.Range(0, ents.Count)]).infect(d);

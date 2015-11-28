@@ -48,7 +48,7 @@ public class VillageLifeSimulator {
 		diseases = new ArrayList ();
 		// creates 20 Entities.
 		for (int i = 0; i < 50; i ++) {
-			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1,101),new ArrayList(),Random.Range(1,101),100,Random.Range(12,18),Random.Range(1,1001),new ArrayList(),new ArrayList(),Random.Range(1,101), Random.Range(1,5));
+			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1, 101), Random.Range(1,101), 100, Random.Range(12, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1,101), Random.Range(1,5));
 			ents.Add(e);
 		}
 		Debug.Log ("Created " + ents.Count + " Entities.");
@@ -68,7 +68,7 @@ public class VillageLifeSimulator {
             if (e.isPregnant)
             {
                 //Debug.Log("Child Created");
-                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), new ArrayList(), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
+                Entity newEnt = new Entity(0, 50, Random.Range(1, 101), Random.Range(1, 101), 100, Random.Range(13, 18), Random.Range(1, 1001), new ArrayList(), new ArrayList(), Random.Range(1, 101), Random.Range(1, 20));
                 e.isPregnant = false;
                 e.children.Add(newEnt);
                 e.partner.children.Add(newEnt);
@@ -218,7 +218,7 @@ public class VillageLifeSimulator {
             foreach (Entity e in ents) {
                 newList.Add(e.Copy());
             }
-            GeneticAlgorithm ga = new GeneticAlgorithm(5, newList);
+            GeneticAlgorithm ga = new GeneticAlgorithm(5);//, newList);
             Gene g = ga.StartAlgorithm();
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
             /*
