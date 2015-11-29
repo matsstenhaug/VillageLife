@@ -5,7 +5,8 @@ public class VillagePeopleSimulator : MonoBehaviour {
 	ArrayList ents;
 	ArrayList children;
 	ArrayList diseases;
-	int iteration = 0;
+    public int initalPop = 50;
+    int iteration = 0;
 	int dead = 0;
 	int newBorns = 0;
 	public int kills = 0;
@@ -14,6 +15,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 	int MAX_SUPPORT = 500;
     public float damageDealt = 0;
     string state;
+    int ageTally = 0;
 
     int createdDiseases = 0;
 
@@ -61,7 +63,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		children = new ArrayList ();
 		diseases = new ArrayList ();
 		// creates 20 Entities.
-		for (int i = 0; i < 50; i ++) {
+		for (int i = 0; i < initalPop; i ++) {
 			Entity e = new Entity(Random.Range(15, 25), 50, Random.Range(1,101), Random.Range(1,101), 100, 
                 Random.Range(12,18), Random.Range(1,1001), new ArrayList(), new ArrayList(), Random.Range(1,101), Random.Range(1,5), Random.Range(1,3));
 			ents.Add(e);
@@ -69,11 +71,18 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		Debug.Log ("Created " + ents.Count + " Entities.");
 	}
 
+    public void Start(int initPop, int maxPop) {
+        initalPop = initPop;
+        MAX_SUPPORT = maxPop;
+        Start();
+    }
+
     #region Interactions Updates
     ArrayList UpdateInteractions(ArrayList enties) {
         ArrayList entities = new ArrayList(enties);
         foreach (Entity e in entities) {
-			e.hasLived = true;
+            ageTally++;
+            e.hasLived = true;
 			meetPeople(e);
 		}
         foreach (Entity e in entities) {
@@ -188,6 +197,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
         //Create new Disease, based on chance.
         if (diseases.Count < 1) {
             entities = CreateNewDisease(entities);
+            createdDiseases++;
         }
         entities = InfectPeople(entities);
         //foreach(Disease d in diseases)
@@ -462,6 +472,10 @@ public class VillagePeopleSimulator : MonoBehaviour {
 
     public string GetState() {
         return state;
+    }
+
+    public string GetStatistics() {
+        return "Total Body Count: " + dead + ", Total Diseases encountered: " + createdDiseases + " Average Lifespan: " + Mathf.Ceil(ageTally / dead);
     }
 }
 

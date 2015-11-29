@@ -1,0 +1,30 @@
+New Village Created!
+Year: 01, Villagers: 100, Body Count: 00.
+Year: 02, Villagers: 124, Body Count: 04.
+Year: 03, Villagers: 140, Body Count: 09.
+Year: 04, Villagers: 135, Body Count: 24.
+Year: 05, Villagers: 105, Body Count: 36.
+Year: 06, Villagers: 082, Body Count: 28.
+Year: 07, Villagers: 060, Body Count: 22.
+Year: 08, Villagers: 047, Body Count: 13.
+Year: 09, Villagers: 034, Body Count: 13.
+Year: 10, Villagers: 029, Body Count: 05.
+Year: 11, Villagers: 022, Body Count: 07.
+Year: 12, Villagers: 021, Body Count: 01.
+Year: 13, Villagers: 019, Body Count: 02.
+Year: 14, Villagers: 015, Body Count: 04.
+Year: 15, Villagers: 013, Body Count: 02.
+Year: 16, Villagers: 012, Body Count: 01.
+Year: 17, Villagers: 011, Body Count: 02.
+Year: 18, Villagers: 008, Body Count: 03.
+Year: 19, Villagers: 007, Body Count: 01.
+Year: 20, Villagers: 005, Body Count: 02.
+Year: 21, Villagers: 004, Body Count: 02.
+Year: 22, Villagers: 002, Body Count: 02.
+Year: 23, Villagers: 002, Body Count: 00.
+Year: 24, Villagers: 002, Body Count: 00.
+Year: 25, Villagers: 001, Body Count: 01.
+Year: 26, Villagers: 001, Body Count: 00.
+Year: 27, Villagers: 001, Body Count: 00.
+Year: 28, Villagers: 000, Body Count: 01.
+Total Body Count: 185, Total Diseases encountered: 3 Average Lifespan: 5
