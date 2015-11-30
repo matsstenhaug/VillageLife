@@ -1,0 +1,7 @@
+roulette selection (produceNextGen)
+waves of diseases (once they are all immune wait some before sending next)
+immune parents can pass on immunity
+
+test against various results to prove what could have been done with evolutionary algorithm on peeps could have performed
+
+medical text of inheritance of immunity?
