@@ -9,6 +9,7 @@ public class Gene
     double doubleVar;
 	public bool isDisease = false;
 	int maxLeth = 100;
+    public float prob = 0;
 
     public Gene(int i)
     {

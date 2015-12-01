@@ -161,6 +161,26 @@ public class GeneticAlgorithm : MonoBehaviour
         //mPopulation.Sort();
         //mPopulation.Reverse();
         //Collections.sort(mPopulation, Collections.reverseOrder(new GeneComparator()));
+       
+       
+        while(mPopulation.Count < POPULATION_SIZE)
+        {
+            Gene[] pars = new Gene[2];
+
+            for(int a = 0; a < 2; a++)
+            {
+                pars[a] = rouletteSelection();
+            }
+            if (pars[0] != null && pars[1] != null)
+            {
+                Gene[] offspr = pars[0].reproduce(pars[1]);
+                for (int j = 0; j < offspr.Length; j++)
+                {
+                    mPopulation.Add(offspr[j]);
+                }
+            }
+        }
+/*
         while (mPopulation.Count > POPULATION_SIZE / 2)
         {
             mPopulation.RemoveAt(mPopulation.Count - 1);
@@ -178,7 +198,28 @@ public class GeneticAlgorithm : MonoBehaviour
         for (int k = POPULATION_SIZE / 2; k < POPULATION_SIZE; k++)
         {
             ((Gene)mPopulation[k]).mutate();
+        }*/
+    }
+
+    public Gene rouletteSelection()
+    {
+        float totalScore = 0;
+        float runningScore = 0;
+        foreach(Gene ge in mPopulation) 
+        {
+            totalScore += ge.getFitness();
         }
+        float rnd = (float)Random.Range(0, 1) * totalScore;
+        foreach(Gene ge in mPopulation)
+        {
+            if( rnd >= runningScore && rnd <= runningScore + ge.getFitness())
+            {
+                return ge;
+            }
+            runningScore += ge.getFitness();
+        }
+
+        return null;
     }
 
     public int size() { return mPopulation.Count; }
