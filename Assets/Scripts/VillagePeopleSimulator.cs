@@ -18,16 +18,21 @@ public class VillagePeopleSimulator : MonoBehaviour {
     int ageTally = 0;
 
     int createdDiseases = 0;
+    int diseaseFreeIteration = 0;
 
     int itLastDisease = 1;
 
+    string bonusString;
+
     public bool isSimulation = false;
+    public int recoveringPeriod = 10;
 
     public ArrayList getEntities() { return ents; }
     public ArrayList getDiseases() { return diseases; }
 
     public int getIterations() { return iteration; }
-    
+
+    #region Methods for stating Simulator
     public void InitSimulation(ArrayList ents, Disease d) {
         this.ents = ents;
         children = new ArrayList();
@@ -71,11 +76,14 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		Debug.Log ("Created " + ents.Count + " Entities.");
 	}
 
-    public void Start(int initPop, int maxPop) {
+    public void Start(int initPop, int maxPop, int recov = 10) {
         initalPop = initPop;
         MAX_SUPPORT = maxPop;
+        recoveringPeriod = recov;
         Start();
+        bonusString += "<<Sanctuary period: " + recoveringPeriod + " years>>" + "\n\r";
     }
+    #endregion
 
     #region Interactions Updates
     ArrayList UpdateInteractions(ArrayList enties) {
@@ -195,10 +203,9 @@ public class VillagePeopleSimulator : MonoBehaviour {
     ArrayList UpdateDiseases(ArrayList ents) {
         ArrayList entities = new ArrayList(ents);
         //Create new Disease, based on chance.
-        if (diseases.Count < 1) {
+        //if (diseases.Count < 1) {
             entities = CreateNewDisease(entities);
-            createdDiseases++;
-        }
+        //}
         entities = InfectPeople(entities);
         //foreach(Disease d in diseases)
             //d.lifespan++;
@@ -215,7 +222,11 @@ public class VillagePeopleSimulator : MonoBehaviour {
                     break;
                 }
             //if(d.lifespan > d.lifetime)
-               // current.Remove(d);
+            // current.Remove(d);
+        }
+        if (diseases.Count > 0 && current.Count == 0) {
+            diseaseFreeIteration = iteration;
+            bonusString += "<<Sanctuary period: " + recoveringPeriod + " years>>" + "\n\r";
         }
         diseases = current;
     }
@@ -227,13 +238,15 @@ public class VillagePeopleSimulator : MonoBehaviour {
         float chance = 100; 
         if(diseases.Count > 0) {
             //print("chance = (Poulation " + ents.Count + " / VillageSupport " + MAX_SUPPORT + ") * time " + itLastDisease + " / currentDiseases " + Diseases.Count);
-            chance = ((((float)ents.Count / (float)MAX_SUPPORT) * itLastDisease) / diseases.Count) * 100;
+            chance = ((((float)ents.Count / (float)MAX_SUPPORT) * (itLastDisease - recoveringPeriod)) / diseases.Count) * 100;
         }
-        if (a <= chance) { // X % chance
+        if ((a <= chance && (itLastDisease > 10 && (diseaseFreeIteration + recoveringPeriod) < iteration))) { // X % chance
+            createdDiseases++;
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
             GeneticAlgorithm ga = new GeneticAlgorithm(5, this);
             Gene g = ga.StartAlgorithm();
+            bonusString += "<<New Disease: " + g.getPhenotype() + ", Fitness: " + g.mFitness + ">>" + "\n\r";
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
             /*
             Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
@@ -470,8 +483,14 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		}
 	}
 
-    public string GetState() {
-        return state;
+    public string GetState(bool bonus = false) {
+        string output = "";
+        if (bonus) {
+            output += bonusString;
+            bonusString = "";
+        }
+        output += state;
+        return output;
     }
 
     public string GetStatistics() {

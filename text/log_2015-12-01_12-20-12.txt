@@ -1,0 +1,26 @@
+New Village Created!
+<<New Disease Phenotype: [78,22,47], Fitness: 123219.8>>
+Year: 01, Villagers: 150, Body Count: 00.
+Year: 02, Villagers: 182, Body Count: 02.
+Year: 03, Villagers: 210, Body Count: 05.
+Year: 04, Villagers: 232, Body Count: 14.
+Year: 05, Villagers: 229, Body Count: 27.
+Year: 06, Villagers: 189, Body Count: 54.
+Year: 07, Villagers: 155, Body Count: 39.
+Year: 08, Villagers: 124, Body Count: 35.
+Year: 09, Villagers: 102, Body Count: 22.
+Year: 10, Villagers: 077, Body Count: 25.
+Year: 11, Villagers: 054, Body Count: 23.
+<<New Disease Phenotype: [54,46,34], Fitness: 38471.46>>
+Year: 12, Villagers: 043, Body Count: 11.
+Year: 13, Villagers: 034, Body Count: 09.
+Year: 14, Villagers: 025, Body Count: 09.
+Year: 15, Villagers: 016, Body Count: 09.
+Year: 16, Villagers: 008, Body Count: 08.
+Year: 17, Villagers: 005, Body Count: 03.
+Year: 18, Villagers: 003, Body Count: 02.
+Year: 19, Villagers: 003, Body Count: 00.
+Year: 20, Villagers: 001, Body Count: 02.
+<<Disease-free sanctuary period: 10 years>>
+Year: 21, Villagers: 000, Body Count: 01.
+Total Body Count: 300, Total Diseases encountered: 2 Average Lifespan: 6

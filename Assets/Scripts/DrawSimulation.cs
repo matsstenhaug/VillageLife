@@ -9,6 +9,8 @@ public class DrawSimulation : MonoBehaviour {
 
     public int initialPopulation = 50;
     public int maximumPopulation = 500;
+    public int recoveringPeriod = 10;
+    public bool bonusInfo = false;
 
     bool done;
 
@@ -21,7 +23,7 @@ public class DrawSimulation : MonoBehaviour {
 	void Update () {
         if(vls.getEntities().Count > 0) {
             vls.NextStep();
-            textbox.text += "\r\n" + vls.GetState();
+            textbox.text += "\r\n" + vls.GetState(bonusInfo);
             scrollBar.value = 0; // keep at buttom
         }
         else if(!done && vls.getEntities().Count == 0) {
@@ -33,7 +35,7 @@ public class DrawSimulation : MonoBehaviour {
 
     public void newVillage() {
         vls = new VillagePeopleSimulator();
-        vls.Start(initialPopulation, maximumPopulation);
+        vls.Start(initialPopulation, maximumPopulation, recoveringPeriod);
         textbox.text = "New Village Created!";
         done = false;
     }

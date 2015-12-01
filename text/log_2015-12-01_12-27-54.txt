@@ -1,0 +1,56 @@
+New Village Created!
+<<New Disease Phenotype: [38,62,22], Fitness: 48474.5>>
+Year: 01, Villagers: 150, Body Count: 00.
+Year: 02, Villagers: 181, Body Count: 00.
+Year: 03, Villagers: 217, Body Count: 00.
+Year: 04, Villagers: 251, Body Count: 00.
+Year: 05, Villagers: 279, Body Count: 00.
+Year: 06, Villagers: 292, Body Count: 00.
+Year: 07, Villagers: 295, Body Count: 00.
+Year: 08, Villagers: 299, Body Count: 00.
+Year: 09, Villagers: 300, Body Count: 00.
+Year: 10, Villagers: 300, Body Count: 00.
+Year: 11, Villagers: 300, Body Count: 00.
+<<New Disease Phenotype: [68,32,40], Fitness: 287874.1>>
+Year: 12, Villagers: 293, Body Count: 07.
+Year: 13, Villagers: 293, Body Count: 00.
+Year: 14, Villagers: 293, Body Count: 00.
+Year: 15, Villagers: 294, Body Count: 00.
+Year: 16, Villagers: 297, Body Count: 00.
+Year: 17, Villagers: 307, Body Count: 00.
+Year: 18, Villagers: 320, Body Count: 00.
+Year: 19, Villagers: 325, Body Count: 22.
+Year: 20, Villagers: 348, Body Count: 11.
+Year: 21, Villagers: 376, Body Count: 13.
+Year: 22, Villagers: 417, Body Count: 17.
+<<New Disease Phenotype: [59,41,36], Fitness: 329148.1>>
+Year: 23, Villagers: 461, Body Count: 15.
+Year: 24, Villagers: 488, Body Count: 12.
+Year: 25, Villagers: 484, Body Count: 16.
+Year: 26, Villagers: 481, Body Count: 19.
+Year: 27, Villagers: 492, Body Count: 08.
+Year: 28, Villagers: 485, Body Count: 15.
+Year: 29, Villagers: 500, Body Count: 00.
+Year: 30, Villagers: 500, Body Count: 00.
+Year: 31, Villagers: 500, Body Count: 00.
+Year: 32, Villagers: 500, Body Count: 00.
+<<New Disease Phenotype: [46,54,31], Fitness: 87450.55>>
+Year: 33, Villagers: 496, Body Count: 04.
+Year: 34, Villagers: 490, Body Count: 10.
+Year: 35, Villagers: 491, Body Count: 09.
+Year: 36, Villagers: 466, Body Count: 34.
+Year: 37, Villagers: 399, Body Count: 98.
+Year: 38, Villagers: 290, Body Count: 143.
+Year: 39, Villagers: 210, Body Count: 111.
+Year: 40, Villagers: 166, Body Count: 61.
+Year: 41, Villagers: 133, Body Count: 39.
+Year: 42, Villagers: 120, Body Count: 15.
+Year: 43, Villagers: 115, Body Count: 06.
+Year: 44, Villagers: 110, Body Count: 05.
+<<New Disease Phenotype: [32,68,47], Fitness: 10062.46>>
+Year: 45, Villagers: 077, Body Count: 33.
+Year: 46, Villagers: 048, Body Count: 29.
+Year: 47, Villagers: 024, Body Count: 24.
+Year: 48, Villagers: 007, Body Count: 17.
+Year: 49, Villagers: 000, Body Count: 07.
+Total Body Count: 800, Total Diseases encountered: 5 Average Lifespan: 18

@@ -9,7 +9,6 @@ public class Gene
     double doubleVar;
 	public bool isDisease = false;
 	int maxLeth = 100;
-    public float prob = 0;
 
     public Gene(int i)
     {
@@ -112,8 +111,9 @@ public class Gene
                 }
             }
             
-				mChromosome[1] = maxLeth - mChromosome[0];
-           
+			mChromosome[1] = maxLeth - mChromosome[0];
+            mChromosome[2] = (int)(Random.Range((mChromosome[0] / (maxLeth / 100)), 100) / 2);
+
             result[j] = temp;
         }
         return result;
