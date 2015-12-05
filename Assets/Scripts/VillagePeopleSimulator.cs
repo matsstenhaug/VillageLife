@@ -215,14 +215,13 @@ public class VillagePeopleSimulator : MonoBehaviour {
 
     void CleanupDiseases() {
         ArrayList current = new ArrayList();
-        foreach(Disease d in diseases) {
-            foreach (Entity e in ents)
-                if (e.infections.Contains(d)) {
+        foreach(Entity e in ents) {
+            for(int i = 0; i < e.infections.Count; i++) {
+                Disease d = (Disease)e.infections[i];
+                if (!current.Contains(d) && (float)e.immunities[i] < 100f) {
                     current.Add(d);
-                    break;
                 }
-            //if(d.lifespan > d.lifetime)
-            // current.Remove(d);
+            }
         }
         if (diseases.Count > 0 && current.Count == 0) {
             diseaseFreeIteration = iteration;
@@ -240,7 +239,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
             //print("chance = (Poulation " + ents.Count + " / VillageSupport " + MAX_SUPPORT + ") * time " + itLastDisease + " / currentDiseases " + Diseases.Count);
             chance = ((((float)ents.Count / (float)MAX_SUPPORT) * (itLastDisease - recoveringPeriod)) / diseases.Count) * 100;
         }
-        if ((a <= chance && (itLastDisease > 10 && (diseaseFreeIteration + recoveringPeriod) < iteration))) { // X % chance
+        if ((a <= chance && (itLastDisease > recoveringPeriod && (diseaseFreeIteration + recoveringPeriod) < iteration))) { // X % chance
             createdDiseases++;
             //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
@@ -402,17 +401,16 @@ public class VillagePeopleSimulator : MonoBehaviour {
             }
         }
     }
-    #endregion
 
-    public void RegeneratePeople(Entity e)
-    {
+    public void RegeneratePeople(Entity e) {
         float reg = (e.vitality * (e.hp / e.maxHealth)) * 10;
-       // print("Regen: "+reg + " at "+e.hp+" hp.");
+        // print("Regen: "+reg + " at "+e.hp+" hp.");
         e.hp += reg;
 
         if (e.hp > e.maxHealth)
             e.hp = e.maxHealth;
     }
+    #endregion
 
     public void SimulateNextStep() {
 		//Debug.Log ("Simulating Iteration " + isSimulation);
@@ -461,7 +459,10 @@ public class VillagePeopleSimulator : MonoBehaviour {
         ents = UpdateDiseases(ents);
 		ents = UpdatePeople (ents); // take damage and stuff;
 
-		iteration++;
+        // String used for providing output
+        state = string.Format("{0,8}, {1,14}, {2,12}.", "Year: " + iteration.ToString("D2"), "Villagers: " + ents.Count.ToString("D3"), "Body Count: " + (kills + ageDeaths).ToString("D2"));
+
+        iteration++;
         itLastDisease++;
         int infected = 0;
         float averageDiseases = 0;
@@ -473,7 +474,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
         }
         if(infected > 0)
             averageDiseases /= (float)infected;
-        state = string.Format("{0,8}, {1,14}, {2,12}.", "Year: " + iteration.ToString("D2"), "Villagers: " + ents.Count.ToString("D3"), "Body Count: " + (kills + ageDeaths).ToString("D2"));
+
         Debug.Log ("Iteration: " + iteration + ". Entities: " + ents.Count + ". Dead: "+dead +", Babies: "+newBorns+", kills: "+kills+", oldies: "+ageDeaths + 
             ", infected: " + infected + ", average: " + (float)averageDiseases + ", Diseases: " + diseases.Count);
         //findPartner (); // create in main class, so that it goes through all the entities.
@@ -494,7 +495,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
     }
 
     public string GetStatistics() {
-        return "Total Body Count: " + dead + ", Total Diseases encountered: " + createdDiseases + " Average Lifespan: " + Mathf.Ceil(ageTally / dead);
+        return "Total Body Count: " + dead + ", Total Diseases encountered: " + createdDiseases + " Average Lifespan: " + Mathf.Ceil(ageTally / dead) + " years.";
     }
 }
 

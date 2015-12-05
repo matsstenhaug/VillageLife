@@ -156,23 +156,19 @@ public class GeneticAlgorithm : MonoBehaviour
     public void produceNextGeneration()
     {
         // use one of the offspring techniques suggested in class (also applying any mutations) HERE
-        GeneComparator mycomp = new GeneComparator();
-        mPopulation.Sort((IComparer) mycomp);
+        mPopulation.Sort((IComparer)new GeneComparator());
         //mPopulation.Sort();
         //mPopulation.Reverse();
         //Collections.sort(mPopulation, Collections.reverseOrder(new GeneComparator()));
-       
-       
-        while(mPopulation.Count < POPULATION_SIZE)
-        {
+
+        #region Roulette Selection
+        while(mPopulation.Count < POPULATION_SIZE) {
             Gene[] pars = new Gene[2];
 
-            for(int a = 0; a < 2; a++)
-            {
+            for(int a = 0; a < 2; a++) {
                 pars[a] = rouletteSelection();
             }
-            if (pars[0] != null && pars[1] != null)
-            {
+            if (pars[0] != null && pars[1] != null) {
                 Gene[] offspr = pars[0].reproduce(pars[1]);
                 for (int j = 0; j < offspr.Length; j++)
                 {
@@ -180,25 +176,23 @@ public class GeneticAlgorithm : MonoBehaviour
                 }
             }
         }
-/*
-        while (mPopulation.Count > POPULATION_SIZE / 2)
-        {
+        #endregion
+        /*
+        while (mPopulation.Count > POPULATION_SIZE / 2) {
             mPopulation.RemoveAt(mPopulation.Count - 1);
         }
         int i = 0;
-        while (mPopulation.Count < POPULATION_SIZE)
-        {
+        while (mPopulation.Count < POPULATION_SIZE) {
             Gene[] offspring = ((Gene)mPopulation[i]).reproduce((Gene)mPopulation[i + 1]);
-            for (int j = 0; j < offspring.Length; j++)
-            {
+            for (int j = 0; j < offspring.Length; j++) {
                 mPopulation.Add(offspring[j]);
             }
             i++;
         }
-        for (int k = POPULATION_SIZE / 2; k < POPULATION_SIZE; k++)
-        {
+        for (int k = POPULATION_SIZE / 2; k < POPULATION_SIZE; k++) {
             ((Gene)mPopulation[k]).mutate();
-        }*/
+        }
+        */
     }
 
     public Gene rouletteSelection()
