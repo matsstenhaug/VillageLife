@@ -1,0 +1,88 @@
+New Village Created!
+<<Sanctuary period: 15 years>>
+Year: 00, Villagers: 100, Body Count: 00.
+Year: 01, Villagers: 133, Body Count: 00.
+Year: 02, Villagers: 168, Body Count: 00.
+Year: 03, Villagers: 197, Body Count: 00.
+Year: 04, Villagers: 208, Body Count: 00.
+Year: 05, Villagers: 213, Body Count: 00.
+Year: 06, Villagers: 213, Body Count: 00.
+Year: 07, Villagers: 213, Body Count: 00.
+Year: 08, Villagers: 214, Body Count: 00.
+Year: 09, Villagers: 214, Body Count: 00.
+Year: 10, Villagers: 215, Body Count: 00.
+Year: 11, Villagers: 216, Body Count: 00.
+Year: 12, Villagers: 216, Body Count: 00.
+Year: 13, Villagers: 217, Body Count: 00.
+Year: 14, Villagers: 218, Body Count: 00.
+Year: 15, Villagers: 226, Body Count: 00.
+<<New Disease: [89,11,48], Fitness: 88828.95>>
+Year: 16, Villagers: 246, Body Count: 00.
+Year: 17, Villagers: 270, Body Count: 01.
+Year: 18, Villagers: 288, Body Count: 15.
+Year: 19, Villagers: 308, Body Count: 20.
+Year: 20, Villagers: 348, Body Count: 18.
+Year: 21, Villagers: 391, Body Count: 21.
+Year: 22, Villagers: 419, Body Count: 29.
+Year: 23, Villagers: 439, Body Count: 31.
+Year: 24, Villagers: 422, Body Count: 51.
+Year: 25, Villagers: 408, Body Count: 45.
+Year: 26, Villagers: 401, Body Count: 37.
+Year: 27, Villagers: 380, Body Count: 43.
+Year: 28, Villagers: 351, Body Count: 45.
+Year: 29, Villagers: 330, Body Count: 36.
+Year: 30, Villagers: 307, Body Count: 30.
+Year: 31, Villagers: 289, Body Count: 23.
+<<New Disease: [70,30,39], Fitness: 307134.3>>
+Year: 32, Villagers: 275, Body Count: 22.
+Year: 33, Villagers: 264, Body Count: 31.
+Year: 34, Villagers: 219, Body Count: 51.
+Year: 35, Villagers: 188, Body Count: 51.
+Year: 36, Villagers: 131, Body Count: 75.
+Year: 37, Villagers: 092, Body Count: 49.
+Year: 38, Villagers: 063, Body Count: 33.
+Year: 39, Villagers: 043, Body Count: 24.
+Year: 40, Villagers: 029, Body Count: 14.
+Year: 41, Villagers: 021, Body Count: 08.
+Year: 42, Villagers: 015, Body Count: 06.
+Year: 43, Villagers: 009, Body Count: 06.
+Year: 44, Villagers: 007, Body Count: 02.
+Year: 45, Villagers: 006, Body Count: 01.
+Year: 46, Villagers: 004, Body Count: 02.
+<<Sanctuary period: 15 years>>
+Year: 47, Villagers: 004, Body Count: 00.
+Year: 48, Villagers: 004, Body Count: 00.
+Year: 49, Villagers: 004, Body Count: 00.
+Year: 50, Villagers: 004, Body Count: 00.
+Year: 51, Villagers: 004, Body Count: 00.
+Year: 52, Villagers: 004, Body Count: 00.
+Year: 53, Villagers: 004, Body Count: 00.
+Year: 54, Villagers: 004, Body Count: 00.
+Year: 55, Villagers: 004, Body Count: 00.
+Year: 56, Villagers: 004, Body Count: 00.
+Year: 57, Villagers: 004, Body Count: 00.
+Year: 58, Villagers: 004, Body Count: 00.
+Year: 59, Villagers: 004, Body Count: 00.
+Year: 60, Villagers: 004, Body Count: 00.
+Year: 61, Villagers: 004, Body Count: 00.
+Year: 62, Villagers: 004, Body Count: 00.
+<<New Disease: [81,19,48], Fitness: 4123.68>>
+Year: 63, Villagers: 004, Body Count: 00.
+Year: 64, Villagers: 002, Body Count: 02.
+<<Sanctuary period: 15 years>>
+Year: 65, Villagers: 002, Body Count: 00.
+Year: 66, Villagers: 002, Body Count: 00.
+Year: 67, Villagers: 002, Body Count: 00.
+Year: 68, Villagers: 002, Body Count: 00.
+Year: 69, Villagers: 002, Body Count: 00.
+Year: 70, Villagers: 002, Body Count: 00.
+Year: 71, Villagers: 002, Body Count: 00.
+Year: 72, Villagers: 002, Body Count: 00.
+Year: 73, Villagers: 001, Body Count: 01.
+Year: 74, Villagers: 001, Body Count: 00.
+Year: 75, Villagers: 001, Body Count: 00.
+Year: 76, Villagers: 001, Body Count: 00.
+Year: 77, Villagers: 001, Body Count: 00.
+Year: 78, Villagers: 001, Body Count: 00.
+Year: 79, Villagers: 000, Body Count: 01.
+Total Body Count: 824, Total Diseases encountered: 3 Average Lifespan: 12 years.

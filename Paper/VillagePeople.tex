@@ -1,27 +1,5 @@
 \documentclass[conference,compsoc]{IEEEtran}
 
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
-
-
 % *** CITATION PACKAGES ***
 %
 \ifCLASSOPTIONcompsoc
@@ -32,29 +10,6 @@
   % normal IEEE
   \usepackage{cite}
 \fi
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off
-% such as if a citation ever needs to be enclosed in parenthesis.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 5.0 (2009-03-20) and later if using hyperref.sty.
-% The latest version can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
-% The documentation is contained in the cite.sty file itself.
-%
-% Note that some packages require special options to format as the Computer
-% Society requires. In particular, Computer Society  papers do not use
-% compressed citation ranges as is done in typical IEEE papers
-% (e.g., [1]-[4]). Instead, they list every citation separately in order
-% (e.g., [1], [2], [3], [4]). To get the latter we need to load the cite
-% package with the nocompress option which is supported by cite.sty v4.0
-% and later.
-
 
 % *** GRAPHICS RELATED PACKAGES ***
 %
@@ -76,163 +31,9 @@
   % every instance of \includegraphics
   % \DeclareGraphicsExtensions{.eps}
 \fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
-% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
-% http://www.ctan.org/tex-archive/info/epslatex/
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
 
-
-% *** MATH PACKAGES ***
-%
-%\usepackage[cmex10]{amsmath}
-% A popular package from the American Mathematical Society that provides
-% many useful and powerful commands for dealing with mathematics. If using
-% it, be sure to load this package with the cmex10 option to ensure that
-% only type 1 fonts will utilized at all point sizes. Without this option,
-% it is possible that some math symbols, particularly those within
-% footnotes, will be rendered in bitmap form which will result in a
-% document that can not be IEEE Xplore compliant!
-%
-% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
-
-
-% *** SPECIALIZED LIST PACKAGES ***
-%
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
-% There is also a support site at:
-% http://algorithms.berlios.de/index.html
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-%\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/tools/
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-% *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a sans serif font rather
-% than the serif font used in traditional IEEE formatting and thus the need
-% to invoke different subfig.sty package options depending on whether
-% compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
-
-
-% *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure. The latest version and documentation can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/base/
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
-% Do not use the stfloats baselinefloat ability as IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/dblfloatfix/
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-%\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/url/
-% Basically, \url{my_url_here}.
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
 \usepackage{hyperref}
+\usepackage{graphicx}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -257,7 +58,6 @@ IT University of Copenhagen\\
 Copenhagen, Denmark\\
 Email: msten@itu.dk}}
 
-% make the title area
 \maketitle
 
 % As a general rule, do not put math, special symbols or citations
@@ -296,34 +96,416 @@ In this document we will elaborate and discuss on the implementations we made, a
 \section{Background}
 \textit{Has this been done before? How? If not, what's the closest related research? (Both using similar approaches and other algorithms.) What's novel with your research?}
 \\
-As far as we know, there has not been any project quite like this. Our goal was to create a village life simulator that took as much information as possible into account, but whether we are able to include it all in this short amount of time, remains to be seen. There are models and texts on epidemics and diseases, which could possibly be useful to our project. As to which approach we will take to integrate it into our evolution, remains to be explored. Can we better our epidemics simply by using an evolutionary approach?\\
+To the best of our knowledge, there hasn't been any project quite like this. Our goal was to create a village life simulator that took as much information as possible into account, but whether we are able to include it all in this short amount of time, remains to be seen. There are models and texts on epidemics and diseases, which could possibly be useful to our project. As to which approach we will take to integrate it into our evolution, remains to be explored. Can we better our epidemics simply by using an evolutionary approach?\\
 
-The interesting concept of this project is that we will have two or more genetic algorithms fight each other for domination. Either the village/population will be extinct, or it will thrive.\\
+The interesting concept of this project, is that we will have two or more genetic algorithms fight each other for domination. Either the village/population will be extinct, or it will thrive.\\
 
 There has been much research on Genetic Algorithm and evolutionary algorithms in general, but using them to fight each other for domination, is something we have yet to see, and is why we thought it could be very interesting to see if we are able to implement it into our solution.\\
+One interesting paper we found, was about competitive co-evolution \cite{rosin1997new}, where some key ideas were described as to how we could possibly make both parties, people and diseases, evolve together and fight each other during evolving as well as in actual run-time. Sharing information and states of the simulation would be a key component here, as well as having some sort of fitness sharing.\\
+
+During our time of this project, our main focus would be on evolving the diseases, and then if we have the resources and time, connect the two parties into making some sort of competitive evolution, if not competitive "co"-evolution.\\
 
 \section{Game mechanics}
 \textit{How does the game work that you are using? Why do you need AI in this game?}
 \\
-Technically, we are not making a game, but more of a simulation. If we have enough time to implement the algorithms and make all the connections, we will try adding a UI to the system.\\
+Technically we are not making a game, but more of a simulation. If we have enough time to implement the algorithms and make all the connections, we will try adding a UI to the system.\\
 By having this UI, we can see if we can find some way for the user to act on behalf of the humans, or act as the creator of different diseases that can mutate and change.\\
 
-The AI we are implementing is essential, as without it, it will not be a simulation of evolution, but merely an imagined hard-coded painting. We want our "game" to come to life, change and mutate. Ideally in real-time. Therefore, by having our simulation using Genetic Algorithms, we can make the fight between people and sickness come alive.\\
+The AI we are implementing is essential, as without it, it will not be a simulation of evolution, but merely an imagined hard-coded painting. We want our "game" to come to life, change and mutate. Ideally in real-time. So by having our simulation using Genetic Algorithms, we can make the fight between people and sickness come alive.\\
 
+Our original thought was to have some sort of competitive co-evolution. \cite{rosin1995methods}\\
+We wanted to have the inhabitants of the village evolve at the same time as the diseases were evolving. Having both elements evolve at the same time, would mean that we would have to simulate the next iterations of the game state and share fitness for the evolving parties as well as sharing the state itself. Sharing this information between the parties, would allow them to competitively evolve based on the other party's evolution. In our case this would mean that if a disease would evolve to a high-lethality/low-spread disease, our people would then maybe want to evolve into something that had more resistance to being infected. This would counter the effect of the disease, and the people would hopefully make it. But then the disease would want to change up again, so that it was sure to spread more, and get the better fitness.\\
+As this process would go on, both parties would competitively fight each other in order to try to evolve into the better fitting product.\\
+
+Since we weren't able to implement this competitive co-evolution in the time-frame we had, we had to turn to a more basic approach, which was to have simpler, yet highly functional, genetic algorithm for just the diseases.  As you will see in the results and in the discussion section of this paper, the behaviour of the genetic algorithm turned out to be quite interesting.\\
 
 \section{Methods}
 \textit{How does your algorithm work? Describe in as much detail as you can fit into the report. Also, how did you interface it to the game?}
 \\
+\subsection{Genetic Algorithm – Evolution of the diseases}
+\subsubsection{The Genome}
+For initiation, we start by having the generator create X amount genome of a disease, where we randomly create the chromosome representing its lethality. In our case we set the initial X to be 5. The other chromosomes are then made by using formulas based on the lethality.\\
+For example, the spread rate of a disease is directly based on the lethality as in: 100\% - lethality = chance of spread.\\
+
+\subsubsection{The Evolution}
+After the first 5 initial genomes of a disease is made, the algorithm starts creating mutations 	of them, and keeps testing these until it has made as many mutations as we want it to. In our 	case, we set this number to be 40.\\
+Based on the initial value for the lethality on each of the genomes, the algorithm then 	mutates that value either +1 or -1 for each of the genomes. These mutations will then be made into the children of the original genome, and will be tested in the simulation along with all the other genomes in the population.\\
+
+\subsubsection{The Simulation}
+	After the 40 mutated and evolved genomes are created, we simulate the next 10 iterations 	for each of them, and get returned a fitness value for each of these, based on how much 	damage was dealt, and how many people was killed.
+	The simulation itself is made by using a copy of the current world state, and running a
+	continuation of that for each of the potential diseases.
+	After each genome has been simulated in the game environment, the next step is to select the 	genome with the highest scoring fitness, creating a disease object out of it, and sending it 	into the actual game environment.
+
+\subsubsection{Roulette selection on the Genetic Algorithm mutation}
+We originally had our genetic algorithm set up so that when two diseases would create an offspring that would become the new "improved" disease, it would go through our population list of current possibilities, and just match up two at a time in a manner of taking the first two, pairing them up, creating offspring, and then go on to the next two in the list, and so on.\\
+However this turned out not to be such a good way of doing it, since the list was already sorted by the fitness of each disease. Which means that the first two would have the highest fitness, and then the next two would have lower, and so on.\\
+By implementing the roulette selection, we could have randomly selected diseases, that
+didn't necessarily take too much thought into the fitness.\\
+
+How it works:\\
+It generates the fitness for each disease like before, but it also has an average fitness.
+Then we create a random percentage based on said average, and use that to match up against the next disease. If that other disease then would match the criteria, it would be selected.\\
+After successfully implementing this algorithm into our Genetic Algorithm, we saw that the diseases that came out had more of a "smart" approach to them.\\
+For instance, the first disease would weaken the population, and then the second one would come in and deal a lot of damage. And if that wasn't enough to kill all the people, it would create another disease that would make sure this happened.\\
+
+\subsection{The People}
+
+Each person has individual stats and variables.\\
+Every one of those stats have some sort of meaning, for example: age, health, gender and 	sexual 	preference.\\
+A person can only get pregnant if it's female, and only by having sex with a man that is capable of having kids.\\
+Basically we have tried to make all the variables and stats be as close to reality as possible.\\
+
+\subsubsection{Simulating the village}
+The algorithm initializes an initial pool of 50 people, with ages ranging from 15-25.\\
+Then the people "walk around" and meet other people.\\
+If two people meet, like each other, and are of opposite gender from each other, then the chances are they will mate and make a child – which is the only way of increasing the population of the village.\\
+After people have interacted with each other, the simulation goes over to the disease(s) and if possible, introduces a new disease to the world. In the beginning of the game simulation, we have made a sanctuary period of 10 years/iterations, which allows the villagers to mature, interact, and try to increase the village's population. After this period is up, the diseases will start coming.\\
+A disease is being made based on the chance of it appearing. The chance is set so that if there aren't any diseases, it will automatically create one the first time around. After that, however, the chance for a disease to appear, is based on a couple of key factors:\\
+\begin{itemize}
+\item[-] How long it has been since a disease was introduced. (the longer, the higher the chance.)
+\item[-] How many people are in the village. (If the population of the village is bigger, the chance for a new disease spawning is greater.)
+\end{itemize}
+
+When a disease has been introduced, that disease infects as many people as it can, based on its spreading rate, and after that, it will deal damage to them according to it's lethality and the infected people's resistance to said disease.\\
+When the diseases have had their turn, the next step of the simulation is to damage the 	infected people. This is simply done by going through all the people in the village, checking if they are infected, and then damaging them based on the lethality of the disease they are infected by, and by the individual's resistance to said disease.\\
+After all the damage has been dealt, the next step is to clean-up and update the people – that means removing those who died, giving birth to the babies (1 iteration is 1 year), and removing old people who no longer have any contribution to the village/simulation.\\
+After all that is done, the cycle restarts from the top, and a new iteration is started.\\
+
+\subsection{Interface}
+	
+The "game" is a real-time simulation, and our user interface is quite minimal. We have a text panel with a scrollbar, which allows the user to see the state of the simulation for each iteration – every simulated "year". Along with this, there are also two buttons. The first one is to start a new simulation, which clears the text-box from containing all the data from the previous simulation, and starts printing out new data from the current, newly started, simulation. The second button allows the user to save the data to a text file within the project. A new text file is created with every click, and the name of the file is simply a formatted pattern of the current date.\\
+
+Having this interface, allowed us to do quicker tests, and to easily scroll through the output data and statistics from the simulation, as well as allowing us to quickly start a new simulation without having to restart the application.\\
+
+\subsection{Visualized Data}
+
+As described in the segment above, where we go into our simple interface, we print out a lot of data. The purpose of this is to be able to see how the genetic algorithm are working, and what impact the finished result have on the "village" we are simulating.\\
+During our development process, we changed what we displayed multiple times, as at different times, we wanted to examine different sets of data.\\
+The data we were most interested in visualizing were as follows:\\
+\begin{itemize}
+\item[-] Iteration number (which year we currently are in)
+\item[-] Phenotype of the Diseases created by the Genetic Algorithm
+\item[-] Amount of people that are alive in the village
+\item[-] Amount of people that are infected by the disease
+\item[-] Amount of people killed by the disease
+\item[-] Amount of new people being born each iteration
+\item[-] Total Kills and Deaths
+\item[-] Amount of people that died from old age (not by the diseases)
+\item[-] Total damage done by the disease
+\end{itemize}
+These are some of the most commonly used data that we visualized for both debugging purposes, as well as for result gathering.\\
+
+
 \section{Results}
 \textit{Did it work? How well? Provide some figures, and a table or two. How much time does it take? Remember to include significance values (remember the t-test?), variance bars... Reread some of the papers from class and compare how they report their results.}
 
-%\section{Conclusion} 
+
+\begin{table}[!t]
+\begin{center}
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{50/500 with 5 iterations}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	09 & 1 & 71988.16\\
+	13 & 6 & 40787.93\\
+	09 & 2 & 42285.89\\
+	10 & 2 & 76082.22\\
+	10 & 4 & 30651.78\\
+	12 & 3 & 30272.74\\
+	09 & 2 & 35273.95\\
+	10 & 3 & 29201.43\\
+	12 & 3 & 24900.14\\
+	10 & 3 & 21598.59\\
+	\hline
+	10.4 & 2.9 & 40304.283\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{100/500 with 5 iterations}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	09 & 1 & 144157.30\\
+	10 & 4 &  43924.62\\
+	13 & 3 &  97805.93\\
+	12 & 3 & 136139.83\\
+	10 & 2 & 161155.45\\
+	10 & 2 & 164141.45\\
+	12 & 2 & 154609.30\\
+	10 & 2 & 119703.96\\
+	09 & 3 & 195418.87\\
+	10 & 1 & 156274.20\\
+	\hline
+	10.5 & 2.3 & 265881.260\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\\[3ex]
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{50/500 with 10 iterations}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	13 & 1 & 90810.27\\
+	14 & 3 & 49816.86\\
+	13 & 3 & 41797.22\\
+	19 & 4 & 29914.41\\
+	14 & 3 & 29745.64\\
+	12 & 2 & 63100.59\\
+	14 & 1 & 75508.05\\
+	13 & 1 & 61623.95\\
+	13 & 3 & 29538.19\\
+	14 & 5 & 32699.82\\
+	\hline
+	13.9 & 2.6 & 50445.500\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{100/500 with 10 iterations}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	14 & 3 &  61018.53\\
+	14 & 4 &  55524.38\\
+	13 & 1 & 232163.30\\
+	11 & 2 & 177002.15\\
+	14 & 2 & 109896.68\\
+	14 & 1 & 185291.80\\
+	12 & 2 & 156898.07\\
+	14 & 2 &  76036.45\\
+	15 & 3 & 173425.03\\
+	15 & 3 &  61841.79\\
+	\hline
+	13.6 & 2.3 & 128909.818\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\\[3ex]
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{50/500 with 15 iterations}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	14 & 5 & 103328.92\\
+	17 & 2 &  82210.36\\
+	13 & 1 &  81541.56\\
+	13 & 1 & 101505.90\\
+	13 & 2 &  68591.16\\
+	15 & 2 &  42628.48\\
+	12 & 1 &  97943.52\\
+	13 & 1 &  86292.06\\
+	15 & 2 &  46835.93\\
+	26 & 6 & 215150.50\\ %total of 112 iterations, first disease had terrible fitness
+	\hline
+	15.1 & 2.3 & 92602.839\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{100/500 with 15 iterations}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	15 & 2 &  41585.33\\
+	11 & 2 & 104729.45\\
+	12 & 3 &  78307.07\\
+	14 & 2 &  76492.84\\
+	12 & 3 &  68966.57\\
+	17 & 4 & 128281.88\\
+	12 & 4 & 111038.49\\
+	11 & 5 &  52633.92\\
+	13 & 2 & 102228.71\\
+	12 & 3 & 133362.31\\
+	\hline
+	12.9 & 3.0 & 89762.657\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\end{center}
+\caption{Village Life simulations with 10 trials against GA-optimized diseases.}
+\label{fig:DefaultExperiment}
+\end{table}
+
+\begin{table}[!t]
+\begin{center}
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{Default settings}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	13 & 1 & 90810.27\\
+	14 & 3 & 49816.86\\
+	13 & 3 & 41797.22\\
+	19 & 4 & 29914.41\\
+	14 & 3 & 29745.64\\
+	12 & 2 & 63100.59\\
+	14 & 1 & 75508.05\\
+	13 & 1 & 61623.95\\
+	13 & 3 & 29538.19\\
+	14 & 5 & 32699.82\\
+	\hline
+	13.9 & 2.6 & 50445.500\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{People regeneration disabled}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	13 & 1 & 100051.10\\
+	13 & 5 &  28284.08\\
+	14 & 1 &  80936.50\\
+	14 & 1 &  60818.35\\
+	13 & 1 &  65849.00\\
+	13 & 2 &  40888.69\\
+	14 & 1 &  96665.30\\
+	15 & 2 &  50637.58\\
+	14 & 1 &  78020.98\\
+	15 & 2 &  31386.04\\
+	\hline
+	13.8 & 1.7 & 63353.762\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\\[3ex]
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{5 Simulation steps}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	13 & 2 & 35785.54\\
+	13 & 1 & 61838.00\\
+	14 & 3 & 22259.17\\
+	13 & 1 & 57306.85\\
+	11 & 3 & 55459.15\\
+	13 & 2 & 35451.54\\
+	15 & 1 & 40386.61\\
+	14 & 2 & 23676.17\\
+	15 & 6 & 67234.64\\
+	12 & 2 & 81024.60\\
+	\hline
+	13.3 & 2.3 & 48042.227\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{15 Simulation steps}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	13 &  3 &  26687.39\\
+	15 &  3 &  34510.81\\
+	14 &  3 &  38854.18\\
+	14 &  3 &  29499.69\\
+	26 & 10 & 239797.62\\
+	14 &  3 &  29140.77\\
+	11 &  5 & 130825.77\\
+	16 &  2 &  36893.06\\
+	14 &  1 &  80887.41\\
+	15 &  2 &  28564.16\\
+	\hline
+	15.2 & 3.5 & 67566.086\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\\[3ex]
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{GA Population 100}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	14 & 3 & 32777.65\\
+	13 & 1 & 79797.64\\
+	14 & 1 & 85458.33\\
+	13 & 2 & 37114.22\\
+	14 & 1 & 73605.61\\
+	14 & 1 & 77875.90\\
+	14 & 3 & 30455.83\\
+	15 & 4 & 36588.93\\
+	11 & 4 & 48179.46\\
+	13 & 2 & 48650.16\\
+	\hline
+	13.5 & 2.2 & 55050.373\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\begin{minipage}{0.25\textwidth}
+\centering
+\textbf{Not Roulette Selection}\\
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Lifespan & Disease & Fitness\\
+	\hline
+	15 & 2 &  45112.97\\
+	14 & 1 &  84312.51\\
+	13 & 1 &  94652.02\\
+	14 & 1 &  95293.23\\
+	15 & 2 &  34246.59\\
+	13 & 2 &  40564.57\\
+	14 & 2 &  54092.32\\
+	14 & 1 & 108408.10\\
+	15 & 2 &  53359.63\\
+	15 & 1 & 108061.00\\
+	\hline
+	14.2 & 1.5 & 71810.294\\
+	\hline
+	\end{tabular}
+\end{minipage}%
+\end{center}
+\caption{Village Life simulations (start population 50, 10 safety-iterations) with 10 trials using different settings. \textit{(simulation steps: 10, population size 40)}}
+\label{fig:SettingsExperiment}
+\end{table}
+
+\section{Conclusion} 
 
 \section{Discussion}
 \textit{What are the strengths and shortcomings of your method? Why did you choose method X instead of Y? How well would it generalize to other game genres? How would you develop it further, if you had time?}
+\\
+Further development -> implement more real-looking stats and connections between human beings and diseases. Add disasters like earthquakes and what not. Make the algorithms work better. Fix the fitness functions. Make more diseases. Have GA on the humans as well, to make the "Fighting" aspect really come to life. Etc.\\
 
-\section{References}
-\textit{You need to include at least 10 references, of which at least 5 should be academic papers. The formatting of the references should follow any of the standard academic reference formats.}
+Passing on of immunities from parents:\\
+Having some sort of algorithmically calculation of the chance of a newborn to inherit immunities from the parents, as well as to how much immunity said newborn would get.\\
+
+Genetic algorithm for the people:\\
+Make the inhabitants of the village be created with some sort of genetic algorithm so that they will take the existing diseases into account, and try to build their stats based on how dangerous it is to "live" and also how many people are in the village.\\ 
+If there were a lot of people (closing up to the maximum supported amount in the village) the chances for a new disease to occur would be greater, and therefore the new people might want to have higher resistances to disease, but lower health – or something along those lines.\\
+
+Natural disasters:\\
+Have some sort of system that would sometimes make a natural disaster occur, like a tornado coming in, or an earthquake.\\
+The thought was that the more people in the village, the more people would be affected as the "space" where you could "hide" (for example) would be significantly smaller.\\
+
+Fighting between people:\\
+When two people would meet, we would have liked to have another system in place that would be able to make conflicts between them occur; say if two males meet, and they both fancy the same woman, they might fight (very primal, yes) to see who would eventually go on to "win" the rights to be with her.\\
+
+Better and more realistic numbers and calculation of the fitness:\\
+This would apply both for the Genetic Algorithm of the diseases as well as the one for the people. Had we had more time, and had been able to implement the genetic algorithm for the people, we would have loved to have better fitness functions for both, and to make them as realistic and good as we possibly could manage.\\
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
@@ -334,41 +516,11 @@ The AI we are implementing is essential, as without it, it will not be a simulat
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
 % references section
-Random citation \cite{goldberg1988genetic} embeddeed in text.
-Random citation \cite{john1992adaptation} embeddeed in text.
-Random citation \cite{wikiCrossover} embeddeed in text.
-Random citation \cite{rosin1995methods} embeddeed in text.
-Random citation \cite{rosin1997new} embeddeed in text.
-Random citation \cite{slowik2004modified} embeddeed in text.
-Random citation \cite{rsImplementation} embeddeed in text.
-Random citation \cite{kermack1927contribution} embeddeed in text.
-Random citation \cite{DSDimmunology} embeddeed in text.
-Random citation \cite{jensen2010klinisk} embeddeed in text.
-
 \newpage
 
+\nocite{*} % show references regardless of \cite
 \bibliography{IEEEabrv,refs} 
 \bibliographystyle{IEEEtran}
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-%\begin{thebibliography}{1}
-%
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-%
-%\end{thebibliography}
 
 % use section* for acknowledgment
 \ifCLASSOPTIONcompsoc

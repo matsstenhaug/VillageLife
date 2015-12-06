@@ -1,0 +1,23 @@
+New Village Created!
+<<Sanctuary period: 5 years>>
+Year: 00, Villagers: 100, Body Count: 00.
+Year: 01, Villagers: 118, Body Count: 00.
+Year: 02, Villagers: 140, Body Count: 00.
+Year: 03, Villagers: 156, Body Count: 00.
+Year: 04, Villagers: 165, Body Count: 00.
+Year: 05, Villagers: 173, Body Count: 00.
+<<New Disease: [68,32,44], Fitness: 144157.3>>
+Year: 06, Villagers: 180, Body Count: 00.
+Year: 07, Villagers: 173, Body Count: 08.
+Year: 08, Villagers: 152, Body Count: 21.
+Year: 09, Villagers: 098, Body Count: 54.
+Year: 10, Villagers: 061, Body Count: 37.
+Year: 11, Villagers: 044, Body Count: 17.
+Year: 12, Villagers: 027, Body Count: 17.
+Year: 13, Villagers: 014, Body Count: 13.
+Year: 14, Villagers: 009, Body Count: 05.
+Year: 15, Villagers: 007, Body Count: 02.
+Year: 16, Villagers: 004, Body Count: 03.
+Year: 17, Villagers: 003, Body Count: 01.
+Year: 18, Villagers: 000, Body Count: 03.
+Total Body Count: 181, Total Diseases encountered: 1 Average Lifespan: 9 years.

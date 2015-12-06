@@ -7,7 +7,6 @@ public class GeneticAlgorithm : MonoBehaviour
     public static int POPULATION_SIZE = 40;
     public static int EVALUTION_TRIALS = 10;
     public static int GENERATION_SIZE = 5;
-    public static int SIMULATION_ITERATIONS = 10;
 
     ArrayList mPopulation;
     VillagePeopleSimulator currVPS;
