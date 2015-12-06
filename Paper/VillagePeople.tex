@@ -232,6 +232,7 @@
 % There should be no need to do such things with IEEEtran.cls V1.6 and later.
 % (Unless specifically asked to do so by the journal or conference you plan
 % to submit to, of course. )
+\usepackage{hyperref}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -275,16 +276,44 @@ Email: msten@itu.dk}}
 
 \section{Introduction and problem statement}
 \textit{What problem are you trying to solve? Why is this important?}
+\\
+We wanted to create a simulation of human life in a village. Having the people that "live" there meet each other, find love, and have kids so that the village population would increase.
+To fight the people, we wanted to create diseases that would damage and try to kill the whole population of people if possible.
+However, in order to do so, the diseases need to evolve, and that means that we have to have an evolutionary algorithm.\\
+
+Therefore, our problem statement goes like this:
+\begin{itemize}
+\item[•]Explore competitive co-evolution in the setting of a virtual village, where people and diseases evolve to battle each other.
+\end{itemize}
+
+We wanted to make each generation of new people that were born evolve and be a "mutation" of said person's parents.
+As for the diseases, we wanted to have them kill as many people as possible, so evolving the lethality, spreading rate and the resistance would be crucial.\\
+
+The village life simulator would be an interesting project to work with, as we will hopefully see how two genetic/evolutionary algorithms work against each other in real time. Who will win? People or Disease?\\
+
+In this document we will elaborate and discuss on the implementations we made, although we weren't able to implement it all. This will be reviewed in the discussion and conclusion section.\\
 
 \section{Background}
 \textit{Has this been done before? How? If not, what's the closest related research? (Both using similar approaches and other algorithms.) What's novel with your research?}
+\\
+As far as we know, there has not been any project quite like this. Our goal was to create a village life simulator that took as much information as possible into account, but whether we are able to include it all in this short amount of time, remains to be seen. There are models and texts on epidemics and diseases, which could possibly be useful to our project. As to which approach we will take to integrate it into our evolution, remains to be explored. Can we better our epidemics simply by using an evolutionary approach?\\
+
+The interesting concept of this project is that we will have two or more genetic algorithms fight each other for domination. Either the village/population will be extinct, or it will thrive.\\
+
+There has been much research on Genetic Algorithm and evolutionary algorithms in general, but using them to fight each other for domination, is something we have yet to see, and is why we thought it could be very interesting to see if we are able to implement it into our solution.\\
 
 \section{Game mechanics}
 \textit{How does the game work that you are using? Why do you need AI in this game?}
+\\
+Technically, we are not making a game, but more of a simulation. If we have enough time to implement the algorithms and make all the connections, we will try adding a UI to the system.\\
+By having this UI, we can see if we can find some way for the user to act on behalf of the humans, or act as the creator of different diseases that can mutate and change.\\
+
+The AI we are implementing is essential, as without it, it will not be a simulation of evolution, but merely an imagined hard-coded painting. We want our "game" to come to life, change and mutate. Ideally in real-time. Therefore, by having our simulation using Genetic Algorithms, we can make the fight between people and sickness come alive.\\
+
 
 \section{Methods}
 \textit{How does your algorithm work? Describe in as much detail as you can fit into the report. Also, how did you interface it to the game?}
-
+\\
 \section{Results}
 \textit{Did it work? How well? Provide some figures, and a table or two. How much time does it take? Remember to include significance values (remember the t-test?), variance bars... Reread some of the papers from class and compare how they report their results.}
 
@@ -305,6 +334,20 @@ Email: msten@itu.dk}}
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
 % references section
+Random citation \cite{goldberg1988genetic} embeddeed in text.
+Random citation \cite{john1992adaptation} embeddeed in text.
+Random citation \cite{wikiCrossover} embeddeed in text.
+Random citation \cite{rosin1995methods} embeddeed in text.
+Random citation \cite{rosin1997new} embeddeed in text.
+Random citation \cite{slowik2004modified} embeddeed in text.
+Random citation \cite{kermack1927contribution} embeddeed in text.
+Random citation \cite{DSDimmunology} embeddeed in text.
+Random citation \cite{jensen2010klinisk} embeddeed in text.
+
+\newpage
+
+\bibliography{IEEEabrv,refs} 
+\bibliographystyle{IEEEtran}
 
 % can use a bibliography generated by BibTeX as a .bbl file
 % BibTeX documentation can be easily obtained at:
