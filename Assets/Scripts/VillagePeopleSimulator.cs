@@ -225,7 +225,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
         }
         if (diseases.Count > 0 && current.Count == 0) {
             diseaseFreeIteration = iteration;
-            bonusString += "<<Sanctuary period: " + recoveringPeriod + " years>>" + "\n\r";
+            bonusString += "<<Sanctuary period: " + recoveringPeriod + " years>>" + "\r\n";
         }
         diseases = current;
     }
@@ -245,7 +245,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
             //////// EVOLUTIONIZE HERE :D /////////
             GeneticAlgorithm ga = new GeneticAlgorithm(5, this);
             Gene g = ga.StartAlgorithm();
-            bonusString += "<<New Disease: " + g.getPhenotype() + ", Fitness: " + g.mFitness + ">>" + "\n\r";
+            bonusString += "<<New Disease: " + g.getPhenotype() + ", Fitness: " + g.mFitness + ">>" + "\r\n";
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
             /*
             Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
