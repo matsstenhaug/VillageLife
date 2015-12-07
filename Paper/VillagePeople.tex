@@ -202,7 +202,6 @@ These are some of the most commonly used data that we visualized for both debugg
 \section{Results}
 %\textit{Did it work? How well? Provide some figures, and a table or two. How much time does it take? Remember to include significance values (remember the t-test?), variance bars... Reread some of the papers from class and compare how they report their results.}\\
 
-
 \begin{table}[!t]
 \begin{center}
 \begin{minipage}{0.25\textwidth}
@@ -343,6 +342,25 @@ These are some of the most commonly used data that we visualized for both debugg
 \caption{Village Life simulations with 10 trials against GA-optimized diseases.}
 \label{fig:DefaultExperiment}
 \end{table}
+
+\subsection{Experimenting and thoughts about the current implementation}
+Unfortunately, we were unable to implement all the features we initially wanted, as shown in Figure \ref{fig:brainstorm}, we had a lot of ideas that we wanted to implement somehow. Although we were unable to complete all the tasks we wanted, we were able to make the most important part work; the genetic algorithm for mutating and creating diseases.\\
+
+As mentioned earlier in this paper, the mutation of the diseases were originally created using a "straight forward" type of selection.\\
+At a later time, though, we switched to using a roulette selection in order to get a more pool of results. As shown in Table \ref{fig:DefaultExperiment}: the calculated average fitness of the diseases made with roulette selection is 111317.726, whilst in Table \ref{fig:SettingsExperiment}, you see that using the non-roulette selection, the average fitness was 71810.294.\\
+Having the roulette selection implemented also allowed us to see some more interesting behaviour from the diseases. For instance, we saw that the diseases usually behaved in a pattern.\\
+That pattern was to either weaken the population first, and then kill them off with a high lethality disease afterwards, or the opposite, where it killed off as many as possible first, in order to make them unable to reproduce and then finish them off.\\
+
+It was quite interesting to see this sort of behaviour occur, just from implementing a new way of selecting which genomes that should be paired up to make a new child.\\ 
+Before we used the roulette selection, the results were more random and usually just killed off as many people as possible, or infected as many as possible. It was usually one or the other. There were no proper connection between the population and the type of disease that was created.\\
+
+\subsection{Roulette Selection}
+Non-roulette: Always creating diseases from the highest fitness, so that there will not really be any variation. It is either a very high fitness, or a very low. Which means, either a High-Lethality/Low-Spread (HL/LS) disease, or a Low-Lethality/High-Spread (LL/HS) disease.\\
+
+Roulette: Generating all sorts of variations – from HL/LS diseases to LL/HS diseases, and everything in between; Medium/medium, med-high/med-low, etc.\\
+
+\subsection{How much time did it take}
+The simulation will take longer (especially when creating new diseases using the GA), the more people are in the village. The time the genetic algorithm uses is also heavily based on how many iterations the simulation is running through for each of the potential diseases tested. Our entire system is closely connected, whether it be the amount of people, the number of iterations, number of genomes in the population, or a mixture of all.\\
 
 \begin{table}[!t]
 \begin{center}
