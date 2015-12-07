@@ -356,11 +356,23 @@ Before we used the roulette selection, the results were more random and usually 
 
 \subsection{Roulette Selection}
 Non-roulette: Always creating diseases from the highest fitness, so that there will not really be any variation. It is either a very high fitness, or a very low. Which means, either a High-Lethality/Low-Spread (HL/LS) disease, or a Low-Lethality/High-Spread (LL/HS) disease.\\
+Some phenotype examples for this version are:\\
+High Leth/Low Spread:\\ 
+G[92, 8, 62] -- G[Lethatlity, Spread, DropRate]\\
+Low Leth/High Spread:\\ 
+G[3, 97, 15] -- G[Lethatlity, Spread, DropRate]\\
+
 
 Roulette: Generating all sorts of variations – from HL/LS diseases to LL/HS diseases, and everything in between; Medium/medium, med-high/med-low, etc.\\
+Phenotype examples for the roulette selection, excluding HL/LS and LL/HS are:\\
+Medium Lethality/Medium Spread:\\ 
+G[50, 50, 42] -- G[Lethatlity, Spread, DropRate]\\
+Med-high Leth/Med-low Spread:\\ 
+G[64, 36, 29] -- G[Lethatlity, Spread, DropRate]\\
 
-\subsection{How much time did it take}
-The simulation will take longer (especially when creating new diseases using the GA), the more people are in the village. The time the genetic algorithm uses is also heavily based on how many iterations the simulation is running through for each of the potential diseases tested. Our entire system is closely connected, whether it be the amount of people, the number of iterations, number of genomes in the population, or a mixture of all.\\
+
+\subsection{Simulation and speed of the program}
+The simulation will take longer (especially when creating new diseases using the GA), the more people are in the village. The time the genetic algorithm uses is also heavily based on how many simulation steps used for simulations that is running through for every potential diseases tested. Our entire system is closely connected, whether it be the amount of people, the number of iterations, number of genomes in the population, or a mixture of all of the above.\\
 
 \begin{table}[!t]
 \begin{center}
@@ -504,6 +516,13 @@ The simulation will take longer (especially when creating new diseases using the
 \end{table}
 
 \section{Conclusion} 
+This project has shown us that evolutionary algorithms is capable of inspiring interesting results. Had we been able to implement two competing ones, it could make for some very interesting results. Even though we were unable to implement this competitive co-evolution, we did implement a very successful and interesting evolutionary algorithm for the diseases.\\ 
+The fact that we could clearly see differences between behaviours when switching from non-roulette to roulette selection, made the whole concept of having two algorithms fight each other even more interesting. Imagine having two sorts of behaviours constantly fighting each other in order to maintain control?\\
+
+Seeing how genetic mutation of a virtual disease can change the outcome of a village's population was quite fascinating, and we spent a lot of time changing around variables and testing against different parameters.\\
+As shown in Tables \ref{fig:DefaultExperiment} and \ref{fig:SettingsExperiment}, we tried with a lot of different variations. Doing this we found that even though one variation was not distinctly "better" than the other (perhaps because of the randomness of it all), there were more behaviours occurring when we introduced the roulette selection.\\
+
+So even though we were unable to implement all the functionalities, stats and behaviours that we wanted, we still leave this project with a sense of accomplishment. Our genetic algorithm and evolution works, and we are now capable of creating "virtual" diseases that can reduce a village's population to 0 within a 100 simulated years!\\
 
 \section{Discussion}
 %\textit{What are the strengths and shortcomings of your method? Why did you choose method X instead of Y? How well would it generalize to other game genres? How would you develop it further, if you had time?}\\
