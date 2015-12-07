@@ -118,6 +118,14 @@ Since we weren't able to implement this competitive co-evolution in the time-fra
 
 \section{Methods}
 %\textit{How does your algorithm work? Describe in as much detail as you can fit into the report. Also, how did you interface it to the game?}\\
+%Example of inserting image.
+\begin{figure}[!t]
+	\centering
+	\graphicspath{{imgs/}}
+	\includegraphics[width=2.5in]{Brainstorm.png}
+	\caption{Initial brainstorm of the features we would like to implement.}
+	\label{fig:brainstorm}
+\end{figure}
 \subsection{Genetic Algorithm – Evolution of the diseases}
 \subsubsection{The Genome}
 For initiation, we start by having the generator create X genomes of a disease, where we randomly create the gene with chromosomes representing its lethality, spread rate and what we call "resistance drop rate" \footnote{The "resistance drop rate" in the current implementation is the rate at which people grow immune to a disease, but in terms of immunology it can be considered how easily the body can generate anti-bodies (very simplified interpretation of how immunology works \cite{DSDimmunology}).}. These chromosomes are then made by using formulas based on the lethality.\\
@@ -138,7 +146,7 @@ We originally had our genetic algorithm set up so that when two diseases would c
 However this turned out not to be such a good way of doing it, since the list was already sorted by the fitness of each disease. Which means that the first two would have the highest fitness, and then the next two would have lower, and so on.\\
 By implementing the roulette selection, we could have randomly selected diseases, that did not necessarily take too much thought into the fitness.\\
 
-How it works:\footnote{Implementation inspired from \cite{rsImplementation}. While we had not dug too much into this algorithm in the present state of the program, we found some interesting article \cite{slowik2004modified} taking this selection further.}\\
+How it works\footnote{Implementation inspired from \cite{rsImplementation}. While we had not dug too much into this algorithm in the present state of the program, we found some interesting article \cite{slowik2004modified} taking this selection further.}:\\
 It generates the fitness for each disease like before, but it also has an average fitness.\\
 Then we create a random percentage based on said average, and use that to match up against the next disease. If that other disease then would match the criteria, it would be selected.\\
 After successfully implementing this algorithm into our Genetic Algorithm, we saw that the diseases that came out had more of a "smart" approach to them.\\
@@ -526,5 +534,6 @@ Tasks and roles for the villagers, allowing them to do more than simply breed li
   % regular IEEE prefers the singular form
   \section*{Acknowledgment}
 \fi
+We would like to thank Marco Scirea for supervising us during this project and for suggesting roulette selection.\\
 
 \end{document}
