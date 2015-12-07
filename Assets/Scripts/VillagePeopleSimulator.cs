@@ -117,7 +117,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		if(e2.partner == null || e2.partner == e) { // e can cheat :D
 			if(Random.Range(1,101)>=e.potency) {
 				if(Random.Range(1,101)>=e2.potency) {
-					//Debug.Log("HAVING SEX");
 					// Potency Success -> Pregnancy inc!
 					if(!(e.children.Count >= e.maxChildren) && !(e2.children.Count >= e2.maxChildren)) {
 						if(!e2.isPregnant && !e.isPregnant) {
@@ -142,16 +141,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 	void meetPeople(Entity e) {
 		if (e.hasSexPref) {
 			foreach (Entity e2 in ents) {
-                //a sexual = break
-                if (e.sp == Entity.sexPref.a) {
-                    //break; 
-                }
-				
-				if (e2.sp == Entity.sexPref.a) {
-                    //break; 
-                }
-				
-				// MAKE SURE YOU DONT HAVE INCEST!! :P  #WeDontCare-WeDriveCadillacsInOurDreams
 				// Different sex
 				if (e2.s != e.s) {
 					//Bi or Hetero
@@ -203,12 +192,8 @@ public class VillagePeopleSimulator : MonoBehaviour {
     ArrayList UpdateDiseases(ArrayList ents) {
         ArrayList entities = new ArrayList(ents);
         //Create new Disease, based on chance.
-        //if (diseases.Count < 1) {
-            entities = CreateNewDisease(entities);
-        //}
+        entities = CreateNewDisease(entities);
         entities = InfectPeople(entities);
-        //foreach(Disease d in diseases)
-            //d.lifespan++;
         CleanupDiseases();
         return entities;
     }
@@ -236,20 +221,15 @@ public class VillagePeopleSimulator : MonoBehaviour {
         int a = Random.Range (0,100);
         float chance = 100; 
         if(diseases.Count > 0) {
-            //print("chance = (Poulation " + ents.Count + " / VillageSupport " + MAX_SUPPORT + ") * time " + itLastDisease + " / currentDiseases " + Diseases.Count);
             chance = ((((float)ents.Count / (float)MAX_SUPPORT) * (itLastDisease - recoveringPeriod)) / diseases.Count) * 100;
         }
         if ((a <= chance && (itLastDisease > recoveringPeriod && (diseaseFreeIteration + recoveringPeriod) < iteration))) { // X % chance
             createdDiseases++;
-            //print("A new Disease has emerged! " + chance);
             //////// EVOLUTIONIZE HERE :D /////////
             GeneticAlgorithm ga = new GeneticAlgorithm(5, this);
             Gene g = ga.StartAlgorithm();
             bonusString += "<<New Disease: " + g.getPhenotype() + ", Fitness: " + g.mFitness + ">>" + "\r\n";
             Disease d = new Disease(g.mChromosome[0], g.mChromosome[1], Random.Range(0, 10), g.mChromosome[2], null);
-            /*
-            Disease d = new Disease(Random.Range(0, 10), Random.Range(0, 100), Random.Range(0, 10), Random.Range(0, 10), null);
-            */
             diseases.Add(d);
             itLastDisease = 1;
             ((Entity)entities[Random.Range(0, ents.Count)]).infect(d);
@@ -257,7 +237,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
         return entities;
     }
 
-    //TODO: Spread Diseases (with chance of mutation) 
     ArrayList InfectPeople(ArrayList ents) {
         ArrayList entities = new ArrayList(ents);
         if (diseases.Count > 0) { //Can spread diseases, even when immune
@@ -267,9 +246,7 @@ public class VillagePeopleSimulator : MonoBehaviour {
                     if (e.infections.Contains(d))
                         victimCounter++;
                 }
-                //int cnt = 0;
                 foreach (Entity e in entities) {
-                    //if (!isSimulation) print("Spread count Entities: " + ++cnt + "/" + entities.Count);
                     if (!e.infections.Contains(d)) { // Not infected
                         goto infect;
                     }
@@ -279,7 +256,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 
                 infect:
                     float rng = Random.Range(0f, entities.Count / 10f); // Peeps has 10% chance of encountering others
-                    //if(!isSimulation) print("Rolled: " + rng + "/" + victimCounter);
                     if (rng < victimCounter) {
                         int a = Random.Range(0, 100);
                         if (a <= (int)d.infectionRate) {
@@ -345,7 +321,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 		int killed = 0;
 		int aged = 0;
         ArrayList deadPeeps = new ArrayList();
-            //Debug.Log("Sim = " + isSimulation + ". Damaging People");
 		foreach (Entity e in entities) {
             //go through people and take damage from infections
             DamagePeople(e);
@@ -378,21 +353,13 @@ public class VillagePeopleSimulator : MonoBehaviour {
     }
 
     void DamagePeople(Entity e) {
-        // For some reason, this isSimulation printout CRASHES THE WHOLE THING!!
-        //if (!isSimulation) {
-        //	Debug.Log ("DAMAGING PEOPLE");
-        //}
         foreach (Disease d in e.infections) {
-            //int ra = Random.Range(0,100);
-            //float damage = d.lethality;
             int index = e.infections.IndexOf(d);
             float damage = ((d.lethality * (1 - ((float)e.immunities[index]) / 100))/100) * e.maxHealth;
             if (isSimulation) {
                 damageDealt += damage;
-				//Debug.Log("DmgDealt = "+damageDealt);
 			}
-            e.hp -= damage;//d.lifespan);// (d.lethality/((e.strength+e.hp) / 2)));
-            //Debug.Log("damage taken: " + damage + ", immunity level: " + e.immunities[index]);
+            e.hp -= damage;
             if ((float)e.immunities[index] >= 100 || (float)e.immunities[index] + d.resDropRate >= 100) {
                 e.immunities[index] = 100f;
             }
@@ -404,7 +371,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 
     public void RegeneratePeople(Entity e) {
         float reg = (e.vitality * (e.hp / e.maxHealth)) * 10;
-        // print("Regen: "+reg + " at "+e.hp+" hp.");
         e.hp += reg;
 
         if (e.hp > e.maxHealth)
@@ -413,7 +379,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
     #endregion
 
     public void SimulateNextStep() {
-		//Debug.Log ("Simulating Iteration " + isSimulation);
         ents = UpdateInteractions(ents);
         ArrayList newList = new ArrayList();
         foreach (Entity e in ents) {
@@ -452,7 +417,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 			newList.Add(e);
 		}
 		children = new ArrayList ();
-		//ents = new ArrayList ();
 		ents = (ArrayList)newList.Clone ();
         /////END OF INTERACTIONS//////
         
@@ -477,7 +441,6 @@ public class VillagePeopleSimulator : MonoBehaviour {
 
         Debug.Log ("Iteration: " + iteration + ". Entities: " + ents.Count + ". Dead: "+dead +", Babies: "+newBorns+", kills: "+kills+", oldies: "+ageDeaths + 
             ", infected: " + infected + ", average: " + (float)averageDiseases + ", Diseases: " + diseases.Count);
-        //findPartner (); // create in main class, so that it goes through all the entities.
 		if (ents.Count == 0) {
             ////// ENDS THE SIMULATION IF NO PEOPLE ARE ALIVE //////
 			Destroy(this);

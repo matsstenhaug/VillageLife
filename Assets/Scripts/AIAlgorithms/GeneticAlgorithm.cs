@@ -3,13 +3,13 @@ using System.Collections;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
-    public static int CHROMOSOME_SIZE = 3;
-    public static int POPULATION_SIZE = 40;
-    public static int EVALUTION_TRIALS = 10;
-    public static int GENERATION_SIZE = 5;
+    public static int CHROMOSOME_SIZE = 3; // Amount of stats to be mutated
+    public static int POPULATION_SIZE = 40; // Amount of generated genes
+    public static int EVALUTION_TRIALS = 10; // number of simulated iterations for each genome
+    public static int GENERATION_SIZE = 5; // initial generation size. The new genes that will be made are based on these
 
-    ArrayList mPopulation;
-    VillagePeopleSimulator currVPS;
+    ArrayList mPopulation; // collection of all genes
+    VillagePeopleSimulator currVPS; // Current simulation 
 
     public GeneticAlgorithm(int size, VillagePeopleSimulator vps)
     {
@@ -39,95 +39,41 @@ public class GeneticAlgorithm : MonoBehaviour
 
     public void evaluateGeneration()
     {
-        //Debug.Log("New Gen! mpop is: " + mPopulation.Count);
         for (int i = 0; i < mPopulation.Count; i++) {
-            ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome);
-			//Debug.Log("Fitness pop#" + i + ": " + ((Gene)mPopulation[i]).mFitness);
-
-			/*
-				Connections: 
-				Leth: Mutate (1-100)
-				Spread: 100-Leth
-				Droprate: Mutate (leth-100)
-			 */
-
-
-            // the less iterations it takes for the population to die, the better. (for the diseases)
-            // the more iterations it - the better (for entities)
-
             /*
-                make copies of the "state" and run simulations and return the iterations at end.
-
-            current population
-            current diseases
-            (general) populate new simulatioin with the new generation with diseases from existing.
-                    spawn x children where x is how many children would have been spawned.
-
-                    When do they die?
-                    for the sim: create a population based on how many would have spawned on the previous iteration
-            ///////////////////////                 
-            Make dummy population of 100(example) ents, based on what the "current" pop would have made
-            then test that population of 100 for each of the "evolutions" of diseases.
-            //////////////////////
-            Force-produce children until you have X-children to work with.
-            Take these 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            (Entities)
-            STEP 1:
-                Force-produce 100 children from the actual population
-            STEP 2:
-                Play simulation over X iterations, or untill they all die; WHichever comes first
-            STEP 3: (Evaluation)
-                Check to see how many iterations it took.
-                Check all the genes we create, in regards to the simulation
-                    - How many died, how many were born, how much damage was dealt?(from the created disease)
-            STEP 4:
-                Select fittest mutation.
-                go to STEP 1 and continue 10 times (Evolutioin_trials)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            (Diseases)
-            STEP 1:
-                Take current population
-                Mutate current disease ( the one you wanna make fit )
-            STEP 2:
-                Play simulation over X iterations, or untill they all die; WHichever comes first
-            STEP 3:
-                Check to see how many iterations it took.
-                Check all the genes we create, in regards to the simulation
-                    - How many died, and how much damage was dealt.
-            STEP 4:
-                select fittest mutation.
-                got to Step 1 and do over until done 10 times (Evolution_trials)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-           (disease) Create field that sums up total damage taken from a disease, and evaluate.
-           (entities) 
+                Here we go through all the genes, simulate their existance, and get the fitness based on damage and kills
             */
-            //Debug.Log("Ents in : " + currEnts.Count);
+            ((Gene)mPopulation[i]).mFitness = runExperimentDisease(EVALUTION_TRIALS, ((Gene)mPopulation[i]).mChromosome);
         }
     }
 
     public float getFitnessDisease(VillagePeopleSimulator vls)
     {
+        /*
+            Calculates fitness for a simulated state
+            returns the fitness as float
+        */
         float killValue = 300;
         float damageValue = 1;
-        //Debug.Log("Damage Dealt: "+vls.damageDealt);
-        //Debug.Log("Kills: " + vls.kills);
         float fitness = (vls.damageDealt * damageValue) + (vls.kills * killValue);
-        //Debug.Log(fitness+"\n");
         return fitness;
     }
 
     public float runExperimentDisease(int TRIALS, float[] chromosome) {
+        /*
+            The main experimental simulation method.
+            Goes through all simulated steps, and checks fitness afterwards.
+        */
         Disease d = new Disease(chromosome[0], chromosome[1], 0, chromosome[2], null);
         VillagePeopleSimulator vls = currVPS.Clone();
         vls.AddDisease(d);
         vls.isSimulation = true;
         while (vls.getEntities().Count > 0 && vls.getIterations() <= TRIALS) {
-            //Debug.Log("Simulated Iteration no: " + vls.getIterations());
             vls.SimulateNextStep();
         }
 
-        #region Debug Prints
+        #region Debug Prints 
+        //USED FOR DEBUGGING PURPOSES
         /*
         int infected = 0;
         Debug.Log("Dmg = " + vls.damageDealt);
@@ -146,11 +92,11 @@ public class GeneticAlgorithm : MonoBehaviour
 
     public void produceNextGeneration()
     {
-        // use one of the offspring techniques suggested in class (also applying any mutations) HERE
+        /*
+            Uses Roulette Selection to create offsprings of existing genes.
+            The next generation are added to the mPopulation arraylist
+        */
         mPopulation.Sort((IComparer)new GeneComparator());
-        //mPopulation.Sort();
-        //mPopulation.Reverse();
-        //Collections.sort(mPopulation, Collections.reverseOrder(new GeneComparator()));
 
         #region Roulette Selection
         while(mPopulation.Count < POPULATION_SIZE) {
@@ -168,26 +114,14 @@ public class GeneticAlgorithm : MonoBehaviour
             }
         }
         #endregion
-        /*
-        while (mPopulation.Count > POPULATION_SIZE / 2) {
-            mPopulation.RemoveAt(mPopulation.Count - 1);
-        }
-        int i = 0;
-        while (mPopulation.Count < POPULATION_SIZE) {
-            Gene[] offspring = ((Gene)mPopulation[i]).reproduce((Gene)mPopulation[i + 1]);
-            for (int j = 0; j < offspring.Length; j++) {
-                mPopulation.Add(offspring[j]);
-            }
-            i++;
-        }
-        for (int k = POPULATION_SIZE / 2; k < POPULATION_SIZE; k++) {
-            ((Gene)mPopulation[k]).mutate();
-        }
-        */
     }
 
     public Gene rouletteSelection()
     {
+        /*
+            Gets random gene from the population
+            and which is to be paired with another selected gene.
+        */
         float totalScore = 0;
         float runningScore = 0;
         foreach(Gene ge in mPopulation) 
@@ -207,17 +141,16 @@ public class GeneticAlgorithm : MonoBehaviour
         return null;
     }
 
-    public int size() { return mPopulation.Count; }
+    public int size() { return mPopulation.Count; } // returns the size of mPopulation
 
-    public Gene getGene(int index) { return (Gene)mPopulation[index]; }
+    public Gene getGene(int index) { return (Gene)mPopulation[index]; } // returns the gene at a given index
 
     public Gene StartAlgorithm() // return the best fit
     {
         // Initializing the population. A population contains few AI's
         // The small size is based on the few variables included and
         // the time it takes to run the GA
-
-        //GeneticAlgorithm population = new GeneticAlgorithm(POPULATION_SIZE);
+        
         int generationCount = 0;
         Gene bestGene = null;
         ArrayList best = new ArrayList();
@@ -230,20 +163,14 @@ public class GeneticAlgorithm : MonoBehaviour
             // we choose to print the average fitness,
             // as well as the maximum and minimum fitness
             // as part of our progress monitoring
-            float avgFitness = 0.0f;
-            float minFitness = float.PositiveInfinity;//Float.POSITIVE_INFINITY;
             float maxFitness = float.NegativeInfinity;//Float.NEGATIVE_INFINITY;
             string bestIndividual = "";
             string worstIndividual = "";
             for (int i = 0; i < size(); i++)
             {
                 float currFitness = getGene(i).getFitness();
-                avgFitness += currFitness;
-                if (currFitness < minFitness)
-                {
-                    minFitness = currFitness;
-                    worstIndividual = getGene(i).getPhenotype();
-                }
+                
+             
                 if (currFitness > maxFitness)
                 {
                     maxFitness = currFitness;
@@ -251,15 +178,8 @@ public class GeneticAlgorithm : MonoBehaviour
                     best.Add(getGene(i));
                 }
             }
-            if (size() > 0) { avgFitness = avgFitness / size(); }
-            //string output = "Generation: " + generationCount;
-          //  output += "\t AvgFitness: " + avgFitness;
-          //  output += "\t MinFitness: " + minFitness + " (" + worstIndividual + ")";
-          //  output += "\t MaxFitness: " + maxFitness + " (" + bestIndividual + ")";
-            //System.out.println(output);
             // produce next generation:
             produceNextGeneration();
-            //Debug.Log(generationCount);
             generationCount++;
         }
         foreach(Gene g in best)

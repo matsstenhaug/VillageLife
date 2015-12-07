@@ -4,7 +4,7 @@ using System.Collections;
 public class Gene 
 {
 
-    int intVar;
+    int intVar; 
     float floatVar;
     double doubleVar;
 	public bool isDisease = false;
@@ -144,7 +144,6 @@ public class Gene
 				{
 					mChromosome[i] = maxLeth;
 				}
-				//mChromosome[i] = Random.Range(1,maxLeth);
 				break;
 			case 1://Spread
 				mChromosome[i] = (maxLeth-mChromosome[0]);
@@ -154,16 +153,6 @@ public class Gene
 				mChromosome[i] = (int)(Random.Range((mChromosome[0]/(maxLeth/100)),100)/2);
 				break;
 			}
-           /*int temp = Random.Range(0,3) - 1;
-            mChromosome[i] += temp;
-            if (mChromosome[i] < 1)
-            {
-                mChromosome[i] = 1;
-            }
-            else if (mChromosome[i] > 50)
-            {
-                mChromosome[i] = 50;
-            }*/
         }
     }
     /**
@@ -202,7 +191,7 @@ public class Gene
      */
     public string getPhenotype()
     {
-        // create an empty string
+        // Create a phenotype in the format: [x,y,z]
         string result = "[";
         for (int i = 0; i < mChromosome.Length; i++)
         {
