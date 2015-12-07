@@ -31,13 +31,14 @@ public class DrawSimulation : MonoBehaviour {
             if (vls.getEntities().Count > 0) {
                 vls.NextStep();
                 output.Append("\r\n" + vls.GetState(bonusInfo));
+                scrollBar.value = -0.1f; // keep at buttom
             } else if (!done && vls.getEntities().Count == 0) {
                 done = true;
                 output.Append("\r\n" + vls.GetStatistics());
                 //scrollBar.value = 1.1f; // go to top
+                scrollBar.value = -0.1f; // keep at buttom
             }
             textbox.text = textboxBufferSize > output.Length ? output.ToString(0, output.Length) : output.ToString(output.Length - textboxBufferSize, textboxBufferSize);
-            scrollBar.value = -0.1f; // keep at buttom
         }
 	}
 

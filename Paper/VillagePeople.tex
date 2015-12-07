@@ -118,7 +118,6 @@ Since we weren't able to implement this competitive co-evolution in the time-fra
 
 \section{Methods}
 %\textit{How does your algorithm work? Describe in as much detail as you can fit into the report. Also, how did you interface it to the game?}\\
-%Example of inserting image.
 \begin{figure}[!t]
 	\centering
 	\graphicspath{{imgs/}}
@@ -176,7 +175,14 @@ After all the damage has been dealt, the next step is to clean-up and update the
 After all that is done, the cycle returns back to the top, and a new iteration is started.\\
 
 \subsection{Interface}
-The "game" is a real-time simulation, and our user interface is quite minimal. We have a text panel with a scrollbar, which allows the user to see the state of the simulation for each iteration – every simulated "year". Along with this, there are also two buttons. The first one is to start a new simulation, which clears the text-box (which would otherwise contain all the data from the previous simulation), and starts printing out new data from the current, newly started, simulation. The second button allows the user to save the data to a text file. A new text file is created with every click, and the name of the file is simply a formatted pattern of the current date and time-stamp.\\
+\begin{figure}[!t]
+	\centering
+	\graphicspath{{imgs/}}
+	\includegraphics[width=2.5in]{GUI.png}
+	\caption{Snapshot from the current user interface made with Unity 5.2.}
+	\label{fig:gui}
+\end{figure}
+The "game" is a real-time simulation and our user interface is quite minimal, it can be seen in Figure \ref{fig:gui}. We have a text panel with a scrollbar, which allows the user to see the state of the simulation for each iteration – every simulated "year". Along with this, there are also two buttons. The first one is to start a new simulation, which clears the text-box (which would otherwise contain all the data from the previous simulation), and starts printing out new data from the current, newly started, simulation. The second button allows the user to save the data to a text file. A new text file is created with every click, and the name of the file is simply a formatted pattern of the current date and time-stamp.\\
 
 Having this interface, allowed us to do quicker tests, and to easily scroll through the output data and statistics from the simulation, as well as allowing us to quickly start a new simulation without having to restart the application.\\
 This is however nowhere near the initially envisioned GUI/game we had in mind when we started working this project.\\
@@ -572,5 +578,6 @@ Tasks and roles for the villagers, allowing them to do more than simply breed li
   \section*{Acknowledgment}
 \fi
 We would like to thank Marco Scirea for supervising us during this project and for suggesting roulette selection.\\
+Thank you for the feedback.\\
 
 \end{document}
