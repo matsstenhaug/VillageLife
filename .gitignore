@@ -68,6 +68,7 @@ Obj
 # =========================
 
 Avida-ED
-Paper
+Paper/*
 !Paper/VillagePeople.tex
+!Paper/VillagePeople.pdf
 !Paper/refs.bib
