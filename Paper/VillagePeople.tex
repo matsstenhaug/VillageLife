@@ -75,92 +75,86 @@ Email: msten@itu.dk}}
 %Below is a recommended layout for the report (also take a look at the guidelines for the individual reports); under each section I have included some questions that should be answered within that section. You do not need to follow this structure, but you need to have equivalents of all the sections below somewhere in your report, and you need to answer all the questions posed there. Also, take a look at some of the papers we read in class to get an idea of what they should typical look like and what kind of technical writing is used.
 
 \section{Introduction and problem statement}
-\textit{What problem are you trying to solve? Why is this important?}
-\\
-We wanted to create a simulation of human life in a village. Having the people that "live" there meet each other, find love, and have kids so that the village population would increase.
-To fight the people, we wanted to create diseases that would damage and try to kill the whole population of people if possible.
+%\textit{What problem are you trying to solve? Why is this important?}\\
+We wanted to create a simulation of human life in a village. Having the people that "live" there meet each other, find love, and have kids so that the village population would increase.\\
+To fight the people, we wanted to create diseases that would damage and try to kill the whole population of people if possible.\\
 However, in order to do so, the diseases need to evolve, and that means that we have to have an evolutionary algorithm.\\
 
-Therefore, our problem statement goes like this:
+Therefore, our problem statement goes like this:\\
 \begin{itemize}
 \item[•]Explore competitive co-evolution in the setting of a virtual village, where people and diseases evolve to battle each other.
 \end{itemize}
 
-We wanted to make each generation of new people that were born evolve and be a "mutation" of said person's parents.
-As for the diseases, we wanted to have them kill as many people as possible, so evolving the lethality, spreading rate and the resistance would be crucial.\\
+The idea was to make each generation of new people, that were born. Evolve allowing for them to be a "mutation" of with the genes of both parents.\\
+As for the diseases, we wanted to have them kill as many people as possible, so evolving the lethality, spreading rate and the resistance rate would be crucial.\\
 
 The village life simulator would be an interesting project to work with, as we will hopefully see how two genetic/evolutionary algorithms work against each other in real time. Who will win? People or Disease?\\
 
-In this document we will elaborate and discuss on the implementations we made, although we weren't able to implement it all. This will be reviewed in the discussion and conclusion section.\\
+In this document we will elaborate and discuss on the implementations we made, although, we weren't able to implement everything we had wished to. This will be elaborated and reviewed in the discussion and conclusion section.\\
 
 \section{Background}
-\textit{Has this been done before? How? If not, what's the closest related research? (Both using similar approaches and other algorithms.) What's novel with your research?}
-\\
-To the best of our knowledge, there hasn't been any project quite like this. Our goal was to create a village life simulator that took as much information as possible into account, but whether we are able to include it all in this short amount of time, remains to be seen. There are models and texts on epidemics and diseases, which could possibly be useful to our project. As to which approach we will take to integrate it into our evolution, remains to be explored. Can we better our epidemics simply by using an evolutionary approach?\\
+%\textit{Has this been done before? How? If not, what's the closest related research? (Both using similar approaches and other algorithms.) What's novel with your research?}\\
+To the best of our knowledge, there has not been any project quite like this. Our goal was to create a village life simulator that took as much information as possible into account, but whether we are able to include it all in this short amount of time, remains to be seen. There are models and texts on epidemics and diseases, which could possibly be useful to our project \cite{kermack1927contribution} \cite{jensen2010klinisk}. As to which approach we will take to integrate it into our evolution, remains to be explored. Can we better our epidemics simply by using an evolutionary approach?\\
 
-The interesting concept of this project, is that we will have two or more genetic algorithms fight each other for domination. Either the village/population will be extinct, or it will thrive.\\
+The interesting concept of this project, is that we will have two or more genetic algorithms fight each other for domination. Either the village/population will be extinct, or it will overcome diseases and thrive.\\
 
-There has been much research on Genetic Algorithm and evolutionary algorithms in general, but using them to fight each other for domination, is something we have yet to see, and is why we thought it could be very interesting to see if we are able to implement it into our solution.\\
+There has been much research on Genetic Algorithm and evolutionary algorithms in general \cite{goldberg1988genetic}, but using them to fight each other for domination, is something we have yet to see, and is why we thought it could be very interesting to see if we are able to implement it into our solution.\\
 One interesting paper we found, was about competitive co-evolution \cite{rosin1997new}, where some key ideas were described as to how we could possibly make both parties, people and diseases, evolve together and fight each other during evolving as well as in actual run-time. Sharing information and states of the simulation would be a key component here, as well as having some sort of fitness sharing.\\
 
 During our time of this project, our main focus would be on evolving the diseases, and then if we have the resources and time, connect the two parties into making some sort of competitive evolution, if not competitive "co"-evolution.\\
 
 \section{Game mechanics}
-\textit{How does the game work that you are using? Why do you need AI in this game?}
-\\
+%\textit{How does the game work that you are using? Why do you need AI in this game?}\\
 Technically we are not making a game, but more of a simulation. If we have enough time to implement the algorithms and make all the connections, we will try adding a UI to the system.\\
 By having this UI, we can see if we can find some way for the user to act on behalf of the humans, or act as the creator of different diseases that can mutate and change.\\
 
 The AI we are implementing is essential, as without it, it will not be a simulation of evolution, but merely an imagined hard-coded painting. We want our "game" to come to life, change and mutate. Ideally in real-time. So by having our simulation using Genetic Algorithms, we can make the fight between people and sickness come alive.\\
 
-Our original thought was to have some sort of competitive co-evolution. \cite{rosin1995methods}\\
+Our original thought was to have some sort of competitive co-evolution \cite{rosin1995methods}.\\
 We wanted to have the inhabitants of the village evolve at the same time as the diseases were evolving. Having both elements evolve at the same time, would mean that we would have to simulate the next iterations of the game state and share fitness for the evolving parties as well as sharing the state itself. Sharing this information between the parties, would allow them to competitively evolve based on the other party's evolution. In our case this would mean that if a disease would evolve to a high-lethality/low-spread disease, our people would then maybe want to evolve into something that had more resistance to being infected. This would counter the effect of the disease, and the people would hopefully make it. But then the disease would want to change up again, so that it was sure to spread more, and get the better fitness.\\
 As this process would go on, both parties would competitively fight each other in order to try to evolve into the better fitting product.\\
 
 Since we weren't able to implement this competitive co-evolution in the time-frame we had, we had to turn to a more basic approach, which was to have simpler, yet highly functional, genetic algorithm for just the diseases.  As you will see in the results and in the discussion section of this paper, the behaviour of the genetic algorithm turned out to be quite interesting.\\
 
 \section{Methods}
-\textit{How does your algorithm work? Describe in as much detail as you can fit into the report. Also, how did you interface it to the game?}
-\\
+%\textit{How does your algorithm work? Describe in as much detail as you can fit into the report. Also, how did you interface it to the game?}\\
 \subsection{Genetic Algorithm – Evolution of the diseases}
 \subsubsection{The Genome}
-For initiation, we start by having the generator create X amount genome of a disease, where we randomly create the chromosome representing its lethality. In our case we set the initial X to be 5. The other chromosomes are then made by using formulas based on the lethality.\\
+For initiation, we start by having the generator create X genomes of a disease, where we randomly create the gene with chromosomes representing its lethality, spread rate and what we call "resistance drop rate" \footnote{The "resistance drop rate" in the current implementation is the rate at which people grow immune to a disease, but in terms of immunology it can be considered how easily the body can generate anti-bodies (very simplified interpretation of how immunology works \cite{DSDimmunology}).}. These chromosomes are then made by using formulas based on the lethality.\\
 For example, the spread rate of a disease is directly based on the lethality as in: 100\% - lethality = chance of spread.\\
 
 \subsubsection{The Evolution}
-After the first 5 initial genomes of a disease is made, the algorithm starts creating mutations 	of them, and keeps testing these until it has made as many mutations as we want it to. In our 	case, we set this number to be 40.\\
-Based on the initial value for the lethality on each of the genomes, the algorithm then 	mutates that value either +1 or -1 for each of the genomes. These mutations will then be made into the children of the original genome, and will be tested in the simulation along with all the other genomes in the population.\\
+After the initial 5 genomes of diseases are made, the algorithm starts creating mutations of them, and keeps testing these until it has made as many mutations as we want it to. In our 	case, we set this number to be 40 (the population size).\\
+Based on the initial value for the lethality on each of the genomes, the algorithm then mutates that value either +1 or -1 for each of the genomes. These mutations will then be made into the children of the original genome, and will be tested in the simulation along with all the other genomes in the population.\\
 
 \subsubsection{The Simulation}
-	After the 40 mutated and evolved genomes are created, we simulate the next 10 iterations 	for each of them, and get returned a fitness value for each of these, based on how much 	damage was dealt, and how many people was killed.
-	The simulation itself is made by using a copy of the current world state, and running a
-	continuation of that for each of the potential diseases.
-	After each genome has been simulated in the game environment, the next step is to select the 	genome with the highest scoring fitness, creating a disease object out of it, and sending it 	into the actual game environment.
+After the 40 mutated and evolved genomes are created, we simulate the next 10 iteration steps for each of them, and gets returned a fitness value for each of them, based on how much damage was dealt, and how many people was killed\footnote{Fitness score calculated as follows: 300 for kills, 1 per damage dealt to the population.}.\\
+The simulation itself is made by using a copy of the current world state, and running a continuation of that for each of the potential diseases.\\
+After each genome has been simulated in the game environment, the next step is to select the genome with the highest scoring fitness.\\
+The algorithm will then proceed creating a new generation based on the current utilizing the selection function below. It will continue looping between simulation, selection and deciding the gene with the best fitness for the predetermined number of generations, in our case 5. Ultimately, creating a disease object out of the best from the pool of best genes from every generation, and send it into the actual game environment.\\
 
-\subsubsection{Roulette selection on the Genetic Algorithm mutation}
+\subsubsection{Roulette selection on the Genetic Algorithm mutation} 
 We originally had our genetic algorithm set up so that when two diseases would create an offspring that would become the new "improved" disease, it would go through our population list of current possibilities, and just match up two at a time in a manner of taking the first two, pairing them up, creating offspring, and then go on to the next two in the list, and so on.\\
 However this turned out not to be such a good way of doing it, since the list was already sorted by the fitness of each disease. Which means that the first two would have the highest fitness, and then the next two would have lower, and so on.\\
-By implementing the roulette selection, we could have randomly selected diseases, that
-didn't necessarily take too much thought into the fitness.\\
+By implementing the roulette selection, we could have randomly selected diseases, that did not necessarily take too much thought into the fitness.\\
 
-How it works:\\
-It generates the fitness for each disease like before, but it also has an average fitness.
+How it works:\footnote{Implementation inspired from \cite{rsImplementation}. While we had not dug too much into this algorithm in the present state of the program, we found some interesting article \cite{slowik2004modified} taking this selection further.}\\
+It generates the fitness for each disease like before, but it also has an average fitness.\\
 Then we create a random percentage based on said average, and use that to match up against the next disease. If that other disease then would match the criteria, it would be selected.\\
 After successfully implementing this algorithm into our Genetic Algorithm, we saw that the diseases that came out had more of a "smart" approach to them.\\
 For instance, the first disease would weaken the population, and then the second one would come in and deal a lot of damage. And if that wasn't enough to kill all the people, it would create another disease that would make sure this happened.\\
 
 \subsection{The People}
-
 Each person has individual stats and variables.\\
-Every one of those stats have some sort of meaning, for example: age, health, gender and 	sexual 	preference.\\
+Every one of those stats have some sort of meaning, for example: age, health, gender and sexual preference.\\
 A person can only get pregnant if it's female, and only by having sex with a man that is capable of having kids.\\
-Basically we have tried to make all the variables and stats be as close to reality as possible.\\
+Basically we have tried to make all the variables and stats abstractly represent features in reality, though many more variables and conditions would be required to accurately represent a human being.\\
 
 \subsubsection{Simulating the village}
-The algorithm initializes an initial pool of 50 people, with ages ranging from 15-25.\\
+The algorithm initializes an initial pool of 50 people, with ages ranging from 15-25, male or female.\\
 Then the people "walk around" and meet other people.\\
-If two people meet, like each other, and are of opposite gender from each other, then the chances are they will mate and make a child – which is the only way of increasing the population of the village.\\
-After people have interacted with each other, the simulation goes over to the disease(s) and if possible, introduces a new disease to the world. In the beginning of the game simulation, we have made a sanctuary period of 10 years/iterations, which allows the villagers to mature, interact, and try to increase the village's population. After this period is up, the diseases will start coming.\\
+If two people meet, like each other, and are of opposite gender from one another, then chances are they will mate and make a child, which is the only way of increasing the population of our simulated village.\\
+After people have interacted with each other, the simulation goes over to the disease(s) and if possible, introduces a new disease to the world. In the beginning of the game simulation, we have made a sanctuary period of 10 years/iterations, which allows the villagers to mature, interact, and try to increase the village's population. After this period ends, the diseases will start coming.\\
 A disease is being made based on the chance of it appearing. The chance is set so that if there aren't any diseases, it will automatically create one the first time around. After that, however, the chance for a disease to appear, is based on a couple of key factors:\\
 \begin{itemize}
 \item[-] How long it has been since a disease was introduced. (the longer, the higher the chance.)
@@ -168,19 +162,19 @@ A disease is being made based on the chance of it appearing. The chance is set s
 \end{itemize}
 
 When a disease has been introduced, that disease infects as many people as it can, based on its spreading rate, and after that, it will deal damage to them according to it's lethality and the infected people's resistance to said disease.\\
-When the diseases have had their turn, the next step of the simulation is to damage the 	infected people. This is simply done by going through all the people in the village, checking if they are infected, and then damaging them based on the lethality of the disease they are infected by, and by the individual's resistance to said disease.\\
-After all the damage has been dealt, the next step is to clean-up and update the people – that means removing those who died, giving birth to the babies (1 iteration is 1 year), and removing old people who no longer have any contribution to the village/simulation.\\
-After all that is done, the cycle restarts from the top, and a new iteration is started.\\
+If however the disease has killed all its hosts, or they have all grown immune to it (and there are no other diseases present), the people are rewarded a new sanctuary period, allowing them to recover \footnote{Diseases will however have a chance appearing after the same progression of time from a sanctuary period from another disease, if the other disease has not yet been gotten ridden off.}.\\
+When the diseases have had their turn, the next step of the simulation is to damage the infected people. This is simply done by going through all the people in the village, checking if they are infected, and then damaging them based on the lethality of the disease they are infected by, and by the individual's resistance to said disease.\\
+After all the damage has been dealt, the next step is to clean-up and update the people – that means removing those who died, giving birth to the babies (1 iteration is 1 year), and removing old people who no longer have any contribution to the village/simulation \footnote{Currently this happens when they reach age 42 (sorry).}.\\
+After all that is done, the cycle returns back to the top, and a new iteration is started.\\
 
 \subsection{Interface}
-	
-The "game" is a real-time simulation, and our user interface is quite minimal. We have a text panel with a scrollbar, which allows the user to see the state of the simulation for each iteration – every simulated "year". Along with this, there are also two buttons. The first one is to start a new simulation, which clears the text-box from containing all the data from the previous simulation, and starts printing out new data from the current, newly started, simulation. The second button allows the user to save the data to a text file within the project. A new text file is created with every click, and the name of the file is simply a formatted pattern of the current date.\\
+The "game" is a real-time simulation, and our user interface is quite minimal. We have a text panel with a scrollbar, which allows the user to see the state of the simulation for each iteration – every simulated "year". Along with this, there are also two buttons. The first one is to start a new simulation, which clears the text-box (which would otherwise contain all the data from the previous simulation), and starts printing out new data from the current, newly started, simulation. The second button allows the user to save the data to a text file. A new text file is created with every click, and the name of the file is simply a formatted pattern of the current date and time-stamp.\\
 
 Having this interface, allowed us to do quicker tests, and to easily scroll through the output data and statistics from the simulation, as well as allowing us to quickly start a new simulation without having to restart the application.\\
+This is however nowhere near the initially envisioned GUI/game we had in mind when we started working this project.\\
 
 \subsection{Visualized Data}
-
-As described in the segment above, where we go into our simple interface, we print out a lot of data. The purpose of this is to be able to see how the genetic algorithm are working, and what impact the finished result have on the "village" we are simulating.\\
+As described in the segment above, where we go into our simple interface, we print out a lot of data. The purpose of this is to be able to see how the genetic algorithm is working, and what impact the finished result have on the "village" we are simulating.\\
 During our development process, we changed what we displayed multiple times, as at different times, we wanted to examine different sets of data.\\
 The data we were most interested in visualizing were as follows:\\
 \begin{itemize}
@@ -198,7 +192,7 @@ These are some of the most commonly used data that we visualized for both debugg
 
 
 \section{Results}
-\textit{Did it work? How well? Provide some figures, and a table or two. How much time does it take? Remember to include significance values (remember the t-test?), variance bars... Reread some of the papers from class and compare how they report their results.}
+%\textit{Did it work? How well? Provide some figures, and a table or two. How much time does it take? Remember to include significance values (remember the t-test?), variance bars... Reread some of the papers from class and compare how they report their results.}\\
 
 
 \begin{table}[!t]
@@ -486,26 +480,28 @@ These are some of the most commonly used data that we visualized for both debugg
 \section{Conclusion} 
 
 \section{Discussion}
-\textit{What are the strengths and shortcomings of your method? Why did you choose method X instead of Y? How well would it generalize to other game genres? How would you develop it further, if you had time?}
-\\
-Further development -> implement more real-looking stats and connections between human beings and diseases. Add disasters like earthquakes and what not. Make the algorithms work better. Fix the fitness functions. Make more diseases. Have GA on the humans as well, to make the "Fighting" aspect really come to life. Etc.\\
+%\textit{What are the strengths and shortcomings of your method? Why did you choose method X instead of Y? How well would it generalize to other game genres? How would you develop it further, if you had time?}\\
+For further development of this project we would like to implement more real-looking stats and connections between human beings and diseases. Add disasters like earthquakes and whatnot. Make the algorithms work better. Fix the fitness functions. Make more diseases. Have GA on the humans as well, to make the "Fighting" aspect really come to life. Etc.\\
 
-Passing on of immunities from parents:\\
-Having some sort of algorithmically calculation of the chance of a newborn to inherit immunities from the parents, as well as to how much immunity said newborn would get.\\
+\subsubsection*{Passing on of immunities from parents:}
+Having some sort of algorithmic calculation of the chance for newborns to inherit immunities from the parents, as well as to how strong an immunity said newborn would get \cite{DSDimmunology}.\\
 
-Genetic algorithm for the people:\\
+\subsubsection*{Genetic algorithm for the people:}
 Make the inhabitants of the village be created with some sort of genetic algorithm so that they will take the existing diseases into account, and try to build their stats based on how dangerous it is to "live" and also how many people are in the village.\\ 
 If there were a lot of people (closing up to the maximum supported amount in the village) the chances for a new disease to occur would be greater, and therefore the new people might want to have higher resistances to disease, but lower health – or something along those lines.\\
 
-Natural disasters:\\
+\subsubsection*{Better and more realistic numbers and calculation of the fitness:}
+This would apply both for the Genetic Algorithm of the diseases as well as the one for the people. Had we had more time, and had been able to implement the genetic algorithm for the people, we would have loved to have better fitness functions for both, and to make them as realistic and good as we possibly could manage.\\
+
+\subsubsection*{Natural disasters:}
 Have some sort of system that would sometimes make a natural disaster occur, like a tornado coming in, or an earthquake.\\
 The thought was that the more people in the village, the more people would be affected as the "space" where you could "hide" (for example) would be significantly smaller.\\
 
-Fighting between people:\\
+\subsubsection*{Fighting between people:}
 When two people would meet, we would have liked to have another system in place that would be able to make conflicts between them occur; say if two males meet, and they both fancy the same woman, they might fight (very primal, yes) to see who would eventually go on to "win" the rights to be with her.\\
 
-Better and more realistic numbers and calculation of the fitness:\\
-This would apply both for the Genetic Algorithm of the diseases as well as the one for the people. Had we had more time, and had been able to implement the genetic algorithm for the people, we would have loved to have better fitness functions for both, and to make them as realistic and good as we possibly could manage.\\
+\subsubsection*{Roles, tasks and resources:}
+Tasks and roles for the villagers, allowing them to do more than simply breed like rabbits for a whole year, say the village might have some people to gather food or medical herbs that would allow them to withstand diseases and disasters better.\\
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page

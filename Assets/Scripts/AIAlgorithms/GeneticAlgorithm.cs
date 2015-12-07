@@ -103,14 +103,6 @@ public class GeneticAlgorithm : MonoBehaviour
            (entities) 
             */
             //Debug.Log("Ents in : " + currEnts.Count);
-            
-
-
-            //// NEEDS TO BE CHANGED TO OUR SIMULATOR , NOT PACMAN ///
-            // Executor exe = new Executor();
-            // calculates the fitness passed from a number of trials
-            // mPopulation.get(i).mFitness = exe.runExperiment(new PacmanStateMachine(mPopulation.get(i).mChromosome),
-            //   new StarterGhosts(), EVALUTION_TRIALS);
         }
     }
 
