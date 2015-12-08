@@ -62,4 +62,8 @@ public class DrawSimulation : MonoBehaviour {
         writer.Write(output.ToString());
         writer.Close();
     }
+
+    public void ChangeSpeed(float i) {
+        period = 1-i;
+    }
 }
